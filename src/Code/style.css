@@ -1,0 +1,35 @@
+
+.code {
+    display: flex;
+    width: 40%;
+    height: 60%;
+    padding: 0;
+    border-right: 2px solid #ddd;
+  }
+  
+  .line-numbers {
+    width: 50px;
+    background-color: #e0e0e0;
+    border-right: 2px solid #ddd;
+    text-align: right;
+    font-weight: bold;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: monospace;
+    white-space: pre-wrap;
+    overflow: hidden;
+    height: 100%;
+  }
+  
+  .code-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    overflow: auto;
+    font-family: monospace;
+    white-space: pre-wrap;
+    resize: none;
+    height: 100%;
+  }
+  
