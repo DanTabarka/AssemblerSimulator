@@ -1,13 +1,34 @@
-.buttons {
+.buttonsLine {
     background-color: #428BCA;
     padding: 20px;
     padding-left: 80px;
+    display: flex;
+    justify-content: space-between;
 }
 
 button {
     margin-left: 10px;
     font-size: 1.2em;
+    transition: background-color 0.5s ease;
+    border: 2px solid transparent;
 }
+
+button:hover {
+    /* border: 2px solid black; */
+    box-shadow: 0 0 0 2px black;
+}
+
+.button-group {
+    display: flex;
+  }
+  
+  .button-group.left {
+    margin-right: auto; /* Tlačítka na začátku řádku */
+  }
+  
+  .button-group.right {
+    margin-left: auto; /* Tlačítka na konci řádku */
+  }
 
 .run {
     background-color: hsl(119, 34%, 49%);
@@ -31,5 +52,19 @@ button {
 
 .step:hover {
     cursor: pointer;
-    background-color: hsl(60, 100%, 44%);
+    background-color: hsl(60, 100%, 40%);
 }
+
+.info {
+    color: white;
+    background-color: hsl(27, 98%, 54%);
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+.info:hover {
+    cursor: pointer;
+    background-color: hsl(27, 98%, 42%);
+}
+   
