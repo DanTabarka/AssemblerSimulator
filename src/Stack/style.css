@@ -1,0 +1,40 @@
+.stackDiv {
+    text-align: center;
+    box-sizing: border-box;
+    width: 25%;
+    padding: 10px;
+    padding-left: 30px;
+}
+
+h2 {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.stack-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ccc; /* Jemná čára mezi řádky */
+}
+
+.stack-number {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.stack-value {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.stack-row.active {
+    background-color: #428BCA;
+    color: white;
+    font-weight: bold;
+}
+.stack-row.underActive {
+    background-color: hsl(208, 56%, 70%);
+    color: white;
+    font-weight: bold;
+}

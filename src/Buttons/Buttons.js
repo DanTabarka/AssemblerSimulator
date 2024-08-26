@@ -5,7 +5,7 @@ function Buttons() {
   
 
   return (
-    <p className='buttonsLine'>
+    <div className='buttonsLine'>
       <div className="button-group left">
         <button className='run' onClick={() => alert('Run code clicked!')}>▶️ Run</button>
         <button className='step' onClick={() => alert('Run code clicked!')}>⏩ Step</button>
@@ -14,7 +14,7 @@ function Buttons() {
         <button className='info'>🔍 popis simulátoru</button>
         <button className='info'>📝 instrukce procesoru</button>
       </div>
-    </p>
+    </div>
     
   );
 }
