@@ -32,4 +32,11 @@
     resize: none;
     height: 100%;
   }
+
+  .highlight {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    font-weight: bold;
+    font-style: italic;
+  }
   

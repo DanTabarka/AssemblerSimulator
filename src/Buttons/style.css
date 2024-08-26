@@ -55,6 +55,19 @@ button:hover {
     background-color: hsl(60, 100%, 40%);
 }
 
+.reset {
+    color: white;
+    background-color: hsl(7, 100%, 50%);
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+.reset:hover {
+    cursor: pointer;
+    background-color: hsl(7, 100%, 40%);
+}
+
 .info {
     color: white;
     background-color: hsl(27, 98%, 54%);
@@ -67,4 +80,3 @@ button:hover {
     cursor: pointer;
     background-color: hsl(27, 98%, 42%);
 }
-   

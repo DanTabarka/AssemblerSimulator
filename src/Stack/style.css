@@ -38,3 +38,7 @@ h2 {
     color: white;
     font-weight: bold;
 }
+
+.flags {
+    font-style: italic;
+}

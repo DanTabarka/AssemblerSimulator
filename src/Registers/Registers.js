@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './style.css';
 import Register from './Register.js'
 
 function Registers() {
+  const [sign, setSign] = useState(false);
+  const [zero, setZero] = useState(true);
+  const [carry, setCarry] = useState(false);
+
   return (
     <div className='registersDiv'>
       <h2>Registers</h2>
@@ -28,9 +32,9 @@ function Registers() {
             </thead>
             <tbody>
                 <tr>
-                    <td>1</td>
-                    <td>0</td>
-                    <td>1</td>
+                    <td className='flags'>{(sign) ? 'true' : 'false'}</td>
+                    <td className='flags'>{(zero) ? 'true' : 'false'}</td>
+                    <td className='flags'>{(carry) ? 'true' : 'false'}</td>
                 </tr>
             </tbody>
         </table>
