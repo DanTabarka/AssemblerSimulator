@@ -19,6 +19,8 @@ function App() {
   const [stackPointer, setStackPointer] = useState(0);
   const initialStack = ["", "", "", "", "", "", "", "", "", "", "", ""];
   const [stackValues, setStackValues] = useState(initialStack);
+  const [invalidLine, setInvalidLine] = useState(-1);
+  const [cpuStatus, setCpuStatus] = useState("ok"); // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 
 
   const registerMap = {
@@ -36,49 +38,59 @@ function App() {
 
   const instructionSet = {
     nop : (args) =>{
-      return;
+      return "ok";
     },
     add: (args) => {
       const register = registerMap[args[0].toUpperCase()];
 
       registers[register] += parseInt(args[1]);
+      return "ok";
     },
     sub: (args) => {
       const register = registerMap[args[0].toUpperCase()];
 
       registers[register] -= parseInt(args[1]);
+      return "ok";
     },
     mul: (args) => {
       const register = registerMap[args[0].toUpperCase()];
 
       registers[register] *= parseInt(args[1]);
+      return "ok";
     },
     div: (args) => {
       const register = registerMap[args[0].toUpperCase()];
 
       registers[register] /= parseInt(args[1]);
+      return "ok";
     },
     inc: (args) => {
       const register = registerMap[args[0].toUpperCase()];
 
       registers[register]++;
+      return "ok";
     },
     dec: (args) => {
       const register = registerMap[args[0].toUpperCase()];
 
       registers[register]--;
+      return "ok";
     },
     loop: (args) => {
       setProgramCounter(parseInt(args[0]) - 1);
+      return "ok";
     },
     movr: (args) => {
       const register = registerMap[args[0].toUpperCase()];
 
       registers[register] = parseInt(args[1]);
+      return "ok";
     },
     push: (args) => {
+      return "ok";
     },
     pop: (args) => {
+      return "ok";
     },
     swap: (args) => {
       const register1 = registerMap[args[0].toUpperCase()];
@@ -87,10 +99,13 @@ function App() {
       const tmp = registers[register1];
       registers[register1] = registers[register2];
       registers[register2] = tmp;
+      return "ok";
     },
     get: (args) => {
+      return "ok";
     },
     put: (args) => {
+      return "ok";
     },
     cmp: (args) => {
       const register1 = registerMap[args[0].toUpperCase()];
@@ -98,16 +113,12 @@ function App() {
 
       const value = registers[register1] - registers[register2];
 
-      if (value > 0) {
-        flags[flagMap["sign"]] = true;
-        flags[flagMap["zero"]] = false;
-      } else if (value < 0) {
-        flags[flagMap["sign"]] = false;
-        flags[flagMap["zero"]] = false;
-      } else {
-        flags[flagMap["sign"]] = true;
-        flags[flagMap["zero"]] = true;
-      }
+      flags[flagMap["sign"]] = value >= 0;
+      flags[flagMap["zero"]] = value == 0;
+      return "ok";
+    },
+    halt: (args) => {
+      return "halt";
     }
   };
 
@@ -115,7 +126,11 @@ function App() {
     if (intervalId) return; // Prevent multiple intervals
 
     const id = setInterval(() => {
-      step();
+      if (step() !== "ok") {
+        setInvalidLine(programCounter);
+        clearInterval(id);
+        setIntervalId(null);
+      }
     }, 1000);
     setIntervalId(id);
   };
@@ -124,13 +139,13 @@ function App() {
     const lines = code.split("\n");
     
     if (programCounter >= lines.length) {
-      return;
+      return "halt";
     }
     let currentLine = lines[programCounter].trim();
 
     if (currentLine.length == 0) {
       setProgramCounter(prevLine => prevLine + 1);
-      return;  
+      return "ok";
     }
     const [instruction, ...args] = currentLine.split(' ');
   
@@ -139,7 +154,7 @@ function App() {
     if (func) {
       func(args);
     } else {
-      console.error(`Unknown instruction: ${instruction}`);
+      setInvalidLine(programCounter);
     }
 
     setProgramCounter(prevLine => prevLine + 1);
@@ -153,6 +168,8 @@ function App() {
     setFlags(initialFlags);
     setStackPointer(0);
     setStackValues(initialStack);
+    setInvalidLine(-1);
+    setCpuStatus("ok");
   };
 
   return (
@@ -163,7 +180,7 @@ function App() {
         onReset={reset} 
       />
       <div className="flex">
-        <Code programCounter={programCounter} code={code} setCode={setCode} />
+        <Code programCounter={programCounter} code={code} setCode={setCode} invalidLine={invalidLine} />
         <Registers  registers={registers}
                     programCounter={programCounter}
                     stackPointer={stackPointer}

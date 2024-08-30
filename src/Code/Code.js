@@ -2,7 +2,7 @@ import './code.css';
 import React, { useState, useRef, useEffect } from 'react';
 
 
-function Code({ programCounter, code, setCode }) {
+function Code({ programCounter, code, setCode, invalidLine }) {
   const codeInputRef = useRef(null);
   const lineNumbersRef = useRef(null);
 
@@ -10,7 +10,9 @@ function Code({ programCounter, code, setCode }) {
     const lines = code.split('\n');
     let lineNumberText = '';
     for (let i = 1; i <= lines.length; i++) {
-      if (i === programCounter) {
+      if (i === invalidLine + 1) {
+        lineNumberText += `<span class="invalid">${i}</span>\n`;
+      } else if (i === programCounter){
         lineNumberText += `<span class="highlight">${i}</span>\n`;
       } else {
         lineNumberText += `${i}\n`;
