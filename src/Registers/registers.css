@@ -66,6 +66,9 @@ th {
     visibility: hidden;
     transition: opacity 0.5s, visibility 0.5s;
     font-size: 0.9em;
+    display: flex;
+    /* width: 75px; */
+    /* justify-content: center; */
 }
 
 .tooltip:hover::after {

@@ -14,8 +14,8 @@ button {
 }
 
 button:hover {
-    /* border: 2px solid black; */
     box-shadow: 0 0 0 2px black;
+    cursor: pointer;
 }
 
 .button-group {
@@ -39,7 +39,6 @@ button:hover {
 }
 
 .run:hover {
-    cursor: pointer;
     background-color: hsl(119, 34%, 40%);
 }
 
@@ -51,7 +50,6 @@ button:hover {
 }
 
 .step:hover {
-    cursor: pointer;
     background-color: hsl(60, 100%, 40%);
 }
 
@@ -64,7 +62,6 @@ button:hover {
 }
 
 .reset:hover {
-    cursor: pointer;
     background-color: hsl(7, 100%, 40%);
 }
 
@@ -77,6 +74,13 @@ button:hover {
 }
 
 .info:hover {
-    cursor: pointer;
     background-color: hsl(27, 98%, 42%);
+}
+
+.catchMe {
+    color: white;
+    background-color: hsl(196, 98%, 54%);
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
 }

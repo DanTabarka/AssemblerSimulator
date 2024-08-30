@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
-import './style.css';
+import './registers.css';
 import Register from './Register.js'
 
-function Registers() {
-  const [sign, setSign] = useState(false);
-  const [zero, setZero] = useState(true);
-  const [carry, setCarry] = useState(false);
+function Registers({ registers, programCounter, stackPointer, flags }) {
 
   return (
     <div className='registersDiv'>
       <h2>Registers</h2>
-      <Register name='A' value={10} />
-      <Register name='B' value={10} />
-      <Register name='C' value={10} />
-      <Register name='D' value={10} />
+      <Register name='A' value={registers[0]} data='Registr A' />
+      <Register name='B' value={registers[1]} data='Registr B' />
+      <Register name='C' value={registers[2]} data='Registr C' />
+      <Register name='D' value={registers[3]} data='Registr D' />
 
       <br/><br/>
 
-      <Register name='PC' value={20} />
-      <Register name='SP' value={20} />
+      <Register name='PC' value={programCounter} data='Program Counter' />
+      <Register name='SP' value={stackPointer} data='Stack Pointer' />
 
       <br/>
 
@@ -32,9 +29,9 @@ function Registers() {
             </thead>
             <tbody>
                 <tr>
-                    <td className='flags'>{(sign) ? 'true' : 'false'}</td>
-                    <td className='flags'>{(zero) ? 'true' : 'false'}</td>
-                    <td className='flags'>{(carry) ? 'true' : 'false'}</td>
+                    <td className='flags'>{(flags[0]) ? 'true' : 'false'}</td>
+                    <td className='flags'>{(flags[1]) ? 'true' : 'false'}</td>
+                    <td className='flags'>{(flags[2]) ? 'true' : 'false'}</td>
                 </tr>
             </tbody>
         </table>

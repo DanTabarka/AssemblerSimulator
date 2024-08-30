@@ -1,19 +1,24 @@
-import './style.css';
-import React, { useState, useRef, useEffect } from 'react';
+import './buttons.css';
+import { useState } from 'react';
 
-function Buttons() {
-
-  // const handleStepClick = () => {
-  //   setCurrentLine(prevLine => prevLine + 1);
-  // };
-  
+function Buttons({ onRun, onStep, onReset}) {
+  const [catchMe, setCatchMe] = useState(false);
 
   return (
     <div className='buttonsLine'>
       <div className="button-group left">
-        <button className='run' onClick={() => alert('Run code clicked!')}>▶️ Run</button>
-        <button className='step' onClick={() => alert('Run code clicked!')}>⏩ Step</button>
-        <button className='reset' onClick={() => alert('Run code clicked!')}>🔄 Reset</button>
+        <button className='run' onClick={onRun}>▶️ Run</button>
+        <button className='step' onClick={onStep}>⏩ Step</button>
+        <button className='reset' onClick={onReset}>🔄 Reset</button>
+        <button
+        style={{
+          marginLeft: catchMe ? "150px" : "10px",
+        }}
+        className='catchMe'
+        onMouseEnter={() => setCatchMe(!catchMe)}
+      >
+        Catch me!!
+      </button>
       </div>
       <div className="button-group right">
         <button className='info'>🔍 popis simulátoru</button>

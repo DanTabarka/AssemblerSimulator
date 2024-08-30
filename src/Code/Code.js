@@ -1,17 +1,16 @@
-import './style.css';
+import './code.css';
 import React, { useState, useRef, useEffect } from 'react';
 
-function Code() {
-  const [code, setCode] = useState('');
+
+function Code({ programCounter, code, setCode }) {
   const codeInputRef = useRef(null);
   const lineNumbersRef = useRef(null);
-  const [currentLine, setCurrentLine] = useState(0);
 
   const updateLineNumbers = () => {
     const lines = code.split('\n');
     let lineNumberText = '';
     for (let i = 1; i <= lines.length; i++) {
-      if (i === currentLine) {
+      if (i === programCounter) {
         lineNumberText += `<span class="highlight">${i}</span>\n`;
       } else {
         lineNumberText += `${i}\n`;
@@ -28,15 +27,7 @@ function Code() {
 
   useEffect(() => {
     updateLineNumbers();
-  }, [code, currentLine]);
-
-  const handleStepClick = () => {
-    setCurrentLine(prevLine => prevLine + 1);
-  };
-
-  const handleResetClick = () => {
-    setCurrentLine(0);
-  };
+  }, [code, programCounter]);
 
   return (
     <div className="code">
@@ -49,10 +40,6 @@ function Code() {
         onScroll={syncScroll}
         placeholder="Write assembler code here..."
       />
-      <button>Run</button>
-      <button onClick={handleStepClick}>Step</button>
-      <button onClick={handleResetClick}>Reset</button>
-      <button>{currentLine}</button>
     </div>
   );
 }

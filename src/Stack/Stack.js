@@ -1,4 +1,4 @@
-import './style.css'
+import './stack.css'
 import React, { useState, useEffect } from 'react';
 
 function Stack() {
@@ -26,7 +26,7 @@ function Stack() {
   return (
     <div className='stackDiv'>
       <h2>Stack</h2>
-      {stackValues.map((value, index) => (
+      {stackValues.reverse().map((value, index) => (
         <div
           key={index}
           className={`stack-row ${index === stackPointer ? 'active' : ''} ${index > stackPointer ? 'underActive' : ''}`}
