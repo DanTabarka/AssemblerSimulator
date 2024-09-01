@@ -50,47 +50,77 @@ function App() {
       if (!isRegister(args[0])) {
         return "InvalidArgument"
       }
-      let adding = 0;
+      let addition = 0;
       if (isRegister(args[1])) {
-        adding = registers[registerMap[args[1].toUpperCase()]];
+        addition = registers[registerMap[args[1].toUpperCase()]];
       } else {
-        adding = parseInt(args[1]);
+        addition = parseInt(args[1]);
       }
       const register = registerMap[args[0].toUpperCase()];
 
-      registers[register] += adding;
+      registers[register] += addition;
       return "ok";
     },
     sub: (args) => {
       if (args.length != 2) {
         return "InvalidArgumentCount"
       }
+      if (!isRegister(args[0])) {
+        return "InvalidArgument"
+      }
+      let subtraction = 0;
+      if (isRegister(args[1])) {
+        subtraction = registers[registerMap[args[1].toUpperCase()]];
+      } else {
+        subtraction = parseInt(args[1]);
+      }
       const register = registerMap[args[0].toUpperCase()];
 
-      registers[register] -= parseInt(args[1]);
+      registers[register] -= subtraction;
       return "ok";
     },
     mul: (args) => {
       if (args.length != 2) {
         return "InvalidArgumentCount"
       }
+      if (!isRegister(args[0])) {
+        return "InvalidArgument"
+      }
+      let multiplication = 0;
+      if (isRegister(args[1])) {
+        multiplication = registers[registerMap[args[1].toUpperCase()]];
+      } else {
+        multiplication = parseInt(args[1]);
+      }
       const register = registerMap[args[0].toUpperCase()];
 
-      registers[register] *= parseInt(args[1]);
+      registers[register] *= multiplication;
       return "ok";
     },
     div: (args) => {
       if (args.length != 2) {
         return "InvalidArgumentCount"
       }
+      if (!isRegister(args[0])) {
+        return "InvalidArgument"
+      }
+      let division = 0;
+      if (isRegister(args[1])) {
+        division = registers[registerMap[args[1].toUpperCase()]];
+      } else {
+        division = parseInt(args[1]);
+      }
       const register = registerMap[args[0].toUpperCase()];
 
-      registers[register] /= parseInt(args[1]);
+      registers[register] /= division;
       return "ok";
     },
     inc: (args) => {
       if (args.length != 1) {
         return "InvalidArgumentCount"
+      }
+      if (!isRegister(args[0])) {
+        return "InvalidArgument"
       }
       const register = registerMap[args[0].toUpperCase()];
 
@@ -101,14 +131,20 @@ function App() {
       if (args.length != 1) {
         return "InvalidArgumentCount"
       }
+      if (!isRegister(args[0])) {
+        return "InvalidArgument"
+      }
       const register = registerMap[args[0].toUpperCase()];
 
       registers[register]--;
       return "ok";
     },
-    loop: (args) => {
+    loop: (args) => {                                   // looping on line before and didnt make instruction
       if (args.length != 1) {
         return "InvalidArgumentCount"
+      }
+      if (isRegister(args[0])) {
+        return "InvalidArgument"
       }
       setProgramCounter(parseInt(args[0]) - 1);
       return "ok";
@@ -117,9 +153,18 @@ function App() {
       if (args.length != 2) {
         return "InvalidArgumentCount"
       }
+      if (!isRegister(args[0])) {
+        return "InvalidArgument"
+      }
+      let num = 0;
+      if (isRegister(args[1])) {
+        num = registers[registerMap[args[1].toUpperCase()]];
+      } else {
+        num = parseInt(args[1]);
+      }
       const register = registerMap[args[0].toUpperCase()];
 
-      registers[register] = parseInt(args[1]);
+      registers[register] = num;
       return "ok";
     },
     push: (args) => {
@@ -137,6 +182,9 @@ function App() {
     swap: (args) => {
       if (args.length != 2) {
         return "InvalidArgumentCount"
+      }
+      if (!isRegister(args[0]) || !isRegister(args[1])) {
+        return "InvalidArgument"
       }
       const register1 = registerMap[args[0].toUpperCase()];
       const register2 = registerMap[args[1].toUpperCase()];
@@ -156,10 +204,21 @@ function App() {
       if (args.length != 2) {
         return "InvalidArgumentCount"
       }
-      const register1 = registerMap[args[0].toUpperCase()];
-      const register2 = registerMap[args[1].toUpperCase()];
+      let num1 = 0;
+      if (isRegister(args[0])) {
+        num1 = registers[registerMap[args[0].toUpperCase()]];
+      } else {
+        num1 = parseInt(args[0]);
+      }
 
-      const value = registers[register1] - registers[register2];
+      let num2 = 0;
+      if (isRegister(args[1])) {
+        num2 = registers[registerMap[args[1].toUpperCase()]];
+      } else {
+        num2 = parseInt(args[1]);
+      }
+
+      const value = num1 - num2;
 
       flags[flagMap["sign"]] = value >= 0;
       flags[flagMap["zero"]] = value == 0;
