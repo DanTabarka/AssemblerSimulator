@@ -171,12 +171,40 @@ function App() {
       if (args.length != 1) {
         return "InvalidArgumentCount"
       }
+      if (stackPointer >= stackValues.length - 1) {
+        return "CannotPushOnFullStack"
+      }
+
+      let value = 0;
+      if (isRegister(args[0])) {
+        value = registers[registerMap[args[0].toUpperCase()]];
+      } else {
+        value = parseInt(args[0]);
+      }
+
+      stackValues[stackPointer] = value;
+
+      setStackPointer(prev => prev + 1);
       return "ok";
     },
     pop: (args) => {
       if (args.length != 1) {
         return "InvalidArgumentCount"
       }
+      if (stackPointer <= 0) {
+        return "CannotPopOnEmptyStack"
+      }
+
+      if (!isRegister(args[0])) {
+        return "InvalidArgument"
+      }
+      let register = registerMap[args[0].toUpperCase()];
+      let stackValue = stackValues[stackPointer - 1];
+
+      registers[register] = stackValue;
+      console.log({stackValue});
+
+      setStackPointer(prev => prev - 1);
       return "ok";
     },
     swap: (args) => {
