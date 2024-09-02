@@ -294,8 +294,15 @@ function App() {
       setProgramCounter(prevLine => prevLine + 1);
       return;
     }
-    const [instruction, ...args] = currentLine.split(' ');
-  
+    let [instruction, ...args] = currentLine.split(' ');
+
+    args = args.filter(arg => arg !== ''); // filter empty spaces
+    
+    const commentIndex = args.indexOf('//'); // filter comments
+    if (commentIndex !== -1) {
+      args = args.slice(0, commentIndex);
+    }
+
     const func = instructionSet[instruction.toLowerCase()];
     
     if (func) {
@@ -346,6 +353,8 @@ function App() {
         <Stack stackPointer={stackPointer} stackValues={stackValues}/>
       </div>
       <p>{cpuStatus}</p>
+      <input></input>
+      <p>neco</p>
     </div>
   );
 }
