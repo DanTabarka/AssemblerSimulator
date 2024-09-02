@@ -1,49 +1,78 @@
 
 .code {
-    display: flex;
-    width: 40%;
-    height: 60%;
-    padding: 0;
-    border-right: 2px solid #ddd;
-  }
-  
-  .line-numbers {
-    width: 50px;
-    background-color: #e0e0e0;
-    border-right: 2px solid #ddd;
-    text-align: right;
-    font-weight: bold;
-    padding: 10px;
-    box-sizing: border-box;
-    font-family: monospace;
-    white-space: pre-wrap;
-    overflow: hidden;
-    height: 100%;
-  }
-  
-  .code-input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
-    overflow: auto;
-    font-family: monospace;
-    white-space: pre-wrap;
-    resize: none;
-    height: 100%;
-  }
+  display: flex;
+  width: 40%;
+  height: 60%;
+  padding: 0;
+  border-right: 2px solid #ddd;
+}
 
-  .highlight {
-    background-color: #428BCA;;
-    color: white;
-    font-weight: bold;
-    font-style: italic;
-  }
+.line-numbers {
+  width: 50px;
+  background-color: #e0e0e0;
+  border-right: 2px solid #ddd;
+  text-align: right;
+  font-weight: bold;
+  padding: 10px;
+  box-sizing: border-box;
+  font-family: monospace;
+  white-space: pre-wrap;
+  overflow: hidden;
+  height: 95%;
+  /* height: var(--code-input-height, 100%); Use CSS variable */
+  /* height: 520px; */
+}
 
-  .invalid {
-    background-color: rgb(255, 0, 0);
-    color: white;
-    font-weight: bold;
-    font-style: italic;
-  }
-  
+.code-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  overflow: auto;
+  font-family: monospace;
+  white-space: pre-wrap;
+  resize: none;
+  height: 100%;
+  /* height: 500px; */
+}
+
+.highlight {
+  background-color: #428BCA;;
+  color: white;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.invalid {
+  background-color: rgb(255, 0, 0);
+  color: white;
+  font-weight: bold;
+  font-style: italic;
+}
+
+
+
+
+.code-and-status {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cpu-status {
+  margin-top: 5px;
+  padding: 5px;
+  background-color: #e9e8e8;
+  border-top: 1px solid #ddd;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+}
+
+.cpu-ok {
+  color: green;
+}
+
+.cpu-nok {
+  color: white;
+  background-color: red;
+}

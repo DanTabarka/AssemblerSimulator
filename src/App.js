@@ -332,7 +332,12 @@ function App() {
         onReset={reset} 
       />
       <div className="flex">
-        <Code programCounter={programCounter} code={code} setCode={setCode} invalidLine={invalidLine} />
+        <Code programCounter={programCounter}
+              code={code}
+              setCode={setCode}
+              invalidLine={invalidLine}
+              cpuStatus={cpuStatus}
+        />
         <Registers  registers={registers}
                     programCounter={programCounter}
                     stackPointer={stackPointer}
@@ -340,7 +345,7 @@ function App() {
         />
         <Stack stackPointer={stackPointer} stackValues={stackValues}/>
       </div>
-      <h1>{cpuStatus}</h1>
+      <p>{cpuStatus}</p>
     </div>
   );
 }

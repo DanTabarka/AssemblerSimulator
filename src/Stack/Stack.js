@@ -18,7 +18,6 @@ function Stack({ stackPointer, stackValues }) {
           <span className="stack-value">{value}</span>
         </div>
       ))}
-      <p>{stackPointer}</p>
     </div>
   );
 }
