@@ -84,3 +84,8 @@ button:hover {
     border-radius: 10px;
     border: none;
 }
+
+.link {
+    text-decoration: none;
+    color: white;
+}

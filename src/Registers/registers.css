@@ -35,6 +35,14 @@ table:hover {
     cursor: help;
 }
 
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
 th, td {
     border: 1px solid hsl(0, 0%, 67%);
     padding: 8px;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './registers.css';
-import Register from './Register.js'
+import Register from './Register.jsx'
 
 function Registers({ registers, programCounter, stackPointer, flags }) {
 
@@ -29,9 +29,9 @@ function Registers({ registers, programCounter, stackPointer, flags }) {
             </thead>
             <tbody>
                 <tr>
-                    <td className='flags'>{(flags[0]) ? 'true' : 'false'}</td>
-                    <td className='flags'>{(flags[1]) ? 'true' : 'false'}</td>
-                    <td className='flags'>{(flags[2]) ? 'true' : 'false'}</td>
+                    <td className={`flags ${flags[0] ? 'green' : 'red'}`}>{(flags[0]) ? 'true' : 'false'}</td>
+                    <td className={`flags ${flags[1] ? 'green' : 'red'}`}>{(flags[1]) ? 'true' : 'false'}</td>
+                    <td className={`flags ${flags[2] ? 'green' : 'red'}`}>{(flags[2]) ? 'true' : 'false'}</td>
                 </tr>
             </tbody>
         </table>

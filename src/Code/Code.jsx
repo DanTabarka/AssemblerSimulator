@@ -5,6 +5,7 @@ import React, { useState, useRef, useEffect } from 'react';
 function Code({ programCounter, code, setCode, invalidLine, cpuStatus }) {
   const codeInputRef = useRef(null);
   const lineNumbersRef = useRef(null);
+  // const highlightRef = useRef(null);
 
   const updateLineNumbers = () => {
     const lines = code.split('\n');
@@ -21,6 +22,31 @@ function Code({ programCounter, code, setCode, invalidLine, cpuStatus }) {
     lineNumbersRef.current.innerHTML = lineNumberText;
   };
 
+
+  // const updateHighlight = () => {
+  //   const lines = code.split('\n');
+  //   let lineText = '';
+  //   for (let i = 0; i < lines.length; i++) {
+  //     if (i === invalidLine + 1) {
+  //       lineText += `<span class="invalid">${lines[i]}</span>\n`;
+  //     } else if (i === programCounter){
+  //       lineText += `<span class="highlight">${lines[i]}</span>\n`;
+  //     } else {
+  //       lineText += `${lines[i]}\n`;
+  //     }
+  //   }
+  //   if (codeInputRef.current) {
+  //     codeInputRef.current.innerHTML = lineText;
+  //   }
+  // }
+
+  const syncTextarea = () => {
+    if (codeInputRef.current && codeInputRef.current) {
+      codeInputRef.current.textContent = code;
+    }
+  };
+
+
   const syncScroll = () => {
     if (codeInputRef.current && lineNumbersRef.current) {
       lineNumbersRef.current.scrollTop = codeInputRef.current.scrollTop;
@@ -29,6 +55,8 @@ function Code({ programCounter, code, setCode, invalidLine, cpuStatus }) {
 
   useEffect(() => {
     updateLineNumbers();
+    // updateHighlight();
+    syncTextarea();
     const updateHeight = () => {
       if (codeInputRef.current && lineNumbersRef.current) {
         lineNumbersRef.current.style.height = `${codeInputRef.current.clientHeight}px`;
@@ -41,7 +69,7 @@ function Code({ programCounter, code, setCode, invalidLine, cpuStatus }) {
     return () => {
       window.removeEventListener('resize', updateHeight);
     };
-  }, [code, programCounter]);
+  }, [code, programCounter, invalidLine]);
 
 
 

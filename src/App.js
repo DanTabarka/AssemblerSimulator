@@ -1,10 +1,13 @@
 import './App.css';
-import React, {useState, createContext} from 'react';
-import Code from './Code/Code.js'
-import Registers from './Registers/Registers.js'
-import Stack from './Stack/Stack.js'
-import Buttons from './Buttons/Buttons.js'
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 
+import Code from './Code/Code.jsx';
+import Registers from './Registers/Registers.jsx';
+import Stack from './Stack/Stack.jsx';
+import Buttons from './Buttons/Buttons.jsx';
+import Description from './Info/Description.jsx';
+import Instructions from './Info/Instructions.jsx';
 
 
 function App() {
@@ -171,7 +174,7 @@ function App() {
       if (args.length != 1) {
         return "InvalidArgumentCount"
       }
-      if (stackPointer >= stackValues.length - 1) {
+      if (stackPointer >= stackValues.length) {
         return "CannotPushOnFullStack"
       }
 
@@ -297,8 +300,8 @@ function App() {
     let [instruction, ...args] = currentLine.split(' ');
 
     args = args.filter(arg => arg !== ''); // filter empty spaces
-    
-    const commentIndex = args.indexOf('//'); // filter comments
+
+    const commentIndex = args.findIndex(item => item.startsWith('//')); // filter comments
     if (commentIndex !== -1) {
       args = args.slice(0, commentIndex);
     }
@@ -332,30 +335,34 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Buttons 
-        onRun={run}
-        onStep={step} 
-        onReset={reset} 
-      />
-      <div className="flex">
-        <Code programCounter={programCounter}
-              code={code}
-              setCode={setCode}
-              invalidLine={invalidLine}
-              cpuStatus={cpuStatus}
+    <Router>
+      <div className="App">
+        <Buttons 
+          onRun={run}
+          onStep={step} 
+          onReset={reset} 
         />
-        <Registers  registers={registers}
-                    programCounter={programCounter}
-                    stackPointer={stackPointer}
-                    flags={flags}
-        />
-        <Stack stackPointer={stackPointer} stackValues={stackValues}/>
+        <div className="flex">
+          <Code programCounter={programCounter}
+                code={code}
+                setCode={setCode}
+                invalidLine={invalidLine}
+                cpuStatus={cpuStatus}
+          />
+          <Registers  registers={registers}
+                      programCounter={programCounter}
+                      stackPointer={stackPointer}
+                      flags={flags}
+          />
+          <Stack stackPointer={stackPointer} stackValues={stackValues}/>
+        </div>
       </div>
-      <p>{cpuStatus}</p>
-      <input></input>
-      <p>neco</p>
-    </div>
+
+      <Routes>
+        <Route path="/description" element={<Description />}></Route>
+        <Route path="/instructions" element={<Instructions />}></Route>
+      </Routes>
+    </Router>
   );
 }
 

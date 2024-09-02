@@ -1,5 +1,7 @@
 import './buttons.css';
 import { useState } from 'react';
+import { Link } from "react-router-dom";
+
 
 function Buttons({ onRun, onStep, onReset}) {
   const [catchMe, setCatchMe] = useState(false);
@@ -21,8 +23,8 @@ function Buttons({ onRun, onStep, onReset}) {
       </button>
       </div>
       <div className="button-group right">
-        <button className='info'>🔍 popis simulátoru</button>
-        <button className='info'>📝 instrukce procesoru</button>
+        <button className='info'><Link className='link' to={"/description"}>🔍 popis simulátoru</Link></button>
+        <button className='info'><Link className='link' to={"/instructions"}>📝 instrukce procesoru</Link></button>
       </div>
     </div>
     
