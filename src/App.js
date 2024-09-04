@@ -443,15 +443,28 @@ function App() {
     if (cpuStatus !== "ok") {
       return;
     }
+    // const lines = code.split("\n");
+    // setProgramCounter(nextProgramCounter);
+    
+    // if (programCounter >= lines.length) {
+    //   setCpuStatus("halt");
+    //   return;
+    // }
+
+    // let currentLine = lines[programCounter].trim();
+    // console.log({currentLine}); // logging______________________________________________________________
+    // console.log({programCounter});// logging______________________________________________________________
+    // console.log({nextProgramCounter});// logging______________________________________________________________
+
     const lines = code.split("\n");
     setProgramCounter(nextProgramCounter);
     
-    if (programCounter >= lines.length) {
+    if (nextProgramCounter >= lines.length) {
       setCpuStatus("halt");
       return;
     }
 
-    let currentLine = lines[programCounter].trim();
+    let currentLine = lines[nextProgramCounter].trim();
     console.log({currentLine}); // logging______________________________________________________________
     console.log({programCounter});// logging______________________________________________________________
     console.log({nextProgramCounter});// logging______________________________________________________________
