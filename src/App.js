@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 
 import Code from './Code/Code.jsx';
@@ -19,6 +19,7 @@ function App() {
   const initialFlags = [false, false, false];
   const [flags, setFlags] = useState(initialFlags);
   const [programCounter, setProgramCounter] = useState(0);
+  const [nextProgramCounter, setNextProgramCounter] = useState(1);
   const [stackPointer, setStackPointer] = useState(0);
   const initialStack = ["", "", "", "", "", "", "", "", "", "", "", ""];
   const [stackValues, setStackValues] = useState(initialStack);
@@ -142,14 +143,14 @@ function App() {
       registers[register]--;
       return "ok";
     },
-    loop: (args) => {                                   // looping on line before and didnt make instruction
+    loop: (args) => {
       if (args.length != 1) {
         return "InvalidArgumentCount"
       }
       if (isRegister(args[0])) {
         return "InvalidArgument"
       }
-      setProgramCounter(parseInt(args[0]) - 1);
+      setNextProgramCounter(parseInt(args[0]) - 1);
       return "ok";
     },
     movr: (args) => {
@@ -175,7 +176,7 @@ function App() {
         return "InvalidArgumentCount"
       }
       if (stackPointer >= stackValues.length) {
-        return "CannotPushOnFullStack"
+        return "StackOverflow"
       }
 
       let value = 0;
@@ -195,7 +196,7 @@ function App() {
         return "InvalidArgumentCount"
       }
       if (stackPointer <= 0) {
-        return "CannotPopOnEmptyStack"
+        return "StackUnderflow"
       }
 
       if (!isRegister(args[0])) {
@@ -255,6 +256,140 @@ function App() {
       flags[flagMap["zero"]] = value == 0;
       return "ok";
     },
+    and: (args) => {
+      if (args.length != 2) {
+        return "InvalidArgumentCount"
+      }
+      if (!isRegister(args[0])) {
+        return "InvalidArgument"
+      }
+      let value = 0;
+      if (isRegister(args[1])) {
+        value = registers[registerMap[args[1].toUpperCase()]];
+      } else {
+        value = parseInt(args[1]);
+      }
+      const register = registerMap[args[0].toUpperCase()];
+
+      registers[register] &= value;
+      return "ok";
+    },
+    or: (args) => {
+      if (args.length != 2) {
+        return "InvalidArgumentCount"
+      }
+      if (!isRegister(args[0])) {
+        return "InvalidArgument"
+      }
+      let value = 0;
+      if (isRegister(args[1])) {
+        value = registers[registerMap[args[1].toUpperCase()]];
+      } else {
+        value = parseInt(args[1]);
+      }
+      const register = registerMap[args[0].toUpperCase()];
+
+      registers[register] |= value;
+      return "ok";
+    },
+    xor: (args) => {
+      if (args.length != 2) {
+        return "InvalidArgumentCount"
+      }
+      if (!isRegister(args[0])) {
+        return "InvalidArgument"
+      }
+      let value = 0;
+      if (isRegister(args[1])) {
+        value = registers[registerMap[args[1].toUpperCase()]];
+      } else {
+        value = parseInt(args[1]);
+      }
+      const register = registerMap[args[0].toUpperCase()];
+
+      registers[register] ^= value;
+      return "ok";
+    },
+    shl: (args) => {
+      if (args.length != 1) {
+        return "InvalidArgumentCount"
+      }
+      if (!isRegister(args[0])) {
+        return "InvalidArgument"
+      }
+      const register = registerMap[args[0].toUpperCase()];
+
+      registers[register] <<= 1;
+      return "ok";
+    },
+    shr: (args) => {
+      if (args.length != 1) {
+        return "InvalidArgumentCount"
+      }
+      if (!isRegister(args[0])) {
+        return "InvalidArgument"
+      }
+      const register = registerMap[args[0].toUpperCase()];
+
+      registers[register] >>= 1;
+      return "ok";
+    },
+    jz: (args) => {
+      if (args.length != 1) {
+        return "InvalidArgumentCount"
+      }
+      if (isRegister(args[0])) {
+        return "InvalidArgument"
+      }
+      let jump = parseInt(args[0]);
+
+      if (flags[flagMap["zero"]]) {
+        setNextProgramCounter(jump - 1);
+      }
+      return "ok";
+    },
+    jnz: (args) => {
+      if (args.length != 1) {
+        return "InvalidArgumentCount"
+      }
+      if (isRegister(args[0])) {
+        return "InvalidArgument"
+      }
+      let jump = parseInt(args[0]);
+
+      if (!flags[flagMap["zero"]]) {
+        setNextProgramCounter(jump - 1);
+      }
+      return "ok";
+    },
+    js: (args) => {
+      if (args.length != 1) {
+        return "InvalidArgumentCount"
+      }
+      if (isRegister(args[0])) {
+        return "InvalidArgument"
+      }
+      let jump = parseInt(args[0]);
+
+      if (flags[flagMap["sign"]]) {
+        setNextProgramCounter(jump - 1);
+      }
+      return "ok";
+    },
+    jns: (args) => {
+      if (args.length != 1) {
+        return "InvalidArgumentCount"
+      }
+      if (isRegister(args[0])) {
+        return "InvalidArgument"
+      }
+      let jump = parseInt(args[0]);
+
+      if (!flags[flagMap["sign"]]) {
+        setNextProgramCounter(jump - 1);
+      }
+      return "ok";
+    },
     halt: (args) => {
       if (args.length != 0) {
         return "InvalidArgumentCount"
@@ -286,18 +421,24 @@ function App() {
       return;
     }
     const lines = code.split("\n");
+    setProgramCounter(nextProgramCounter);
     
     if (programCounter >= lines.length) {
       setCpuStatus("halt");
       return;
     }
-    let currentLine = lines[programCounter].trim();
 
-    if (currentLine.length == 0) {
-      setProgramCounter(prevLine => prevLine + 1);
+    let currentLine = lines[programCounter].trim();
+    console.log({currentLine}); // logging______________________________________________________________
+    console.log({programCounter});// logging______________________________________________________________
+    console.log({nextProgramCounter});// logging______________________________________________________________
+
+    let [instruction, ...args] = currentLine.split(' ');
+
+    if (currentLine.length == 0 || instruction.startsWith("//")) {
+      setNextProgramCounter(prev => prev + 1);
       return;
     }
-    let [instruction, ...args] = currentLine.split(' ');
 
     args = args.filter(arg => arg !== ''); // filter empty spaces
 
@@ -319,11 +460,12 @@ function App() {
       setInvalidLine(programCounter);
     }
 
-    setProgramCounter(prevLine => prevLine + 1);
+    setNextProgramCounter(prev => prev + 1);
   };
 
   const reset = () => {
     setProgramCounter(0);
+    setNextProgramCounter(1);
     clearInterval(intervalId);
     setIntervalId(null);
     setRegisters(initialRegisters);
@@ -344,6 +486,7 @@ function App() {
         />
         <div className="flex">
           <Code programCounter={programCounter}
+                nextProgramCounter={nextProgramCounter}
                 code={code}
                 setCode={setCode}
                 invalidLine={invalidLine}
@@ -358,10 +501,10 @@ function App() {
         </div>
       </div>
 
-      <Routes>
+      {/* <Routes>
         <Route path="/description" element={<Description />}></Route>
         <Route path="/instructions" element={<Instructions />}></Route>
-      </Routes>
+      </Routes> */}
     </Router>
   );
 }

@@ -2,7 +2,7 @@ import './code.css';
 import React, { useState, useRef, useEffect } from 'react';
 
 
-function Code({ programCounter, code, setCode, invalidLine, cpuStatus }) {
+function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, cpuStatus }) {
   const codeInputRef = useRef(null);
   const lineNumbersRef = useRef(null);
   // const highlightRef = useRef(null);
@@ -15,6 +15,8 @@ function Code({ programCounter, code, setCode, invalidLine, cpuStatus }) {
         lineNumberText += `<span class="invalid">${i}</span>\n`;
       } else if (i === programCounter){
         lineNumberText += `<span class="highlight">${i}</span>\n`;
+      } else if (i === nextProgramCounter && programCounter + 1 != nextProgramCounter) {
+        lineNumberText += `<span class="next">${i}</span>\n`;
       } else {
         lineNumberText += `${i}\n`;
       }

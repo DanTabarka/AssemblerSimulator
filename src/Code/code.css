@@ -43,6 +43,13 @@
   font-style: italic;
 }
 
+.next {
+  background-color: #f5f500;;
+  color: black;
+  font-weight: bold;
+  font-style: italic;
+}
+
 .invalid {
   background-color: rgb(255, 0, 0);
   color: white;
