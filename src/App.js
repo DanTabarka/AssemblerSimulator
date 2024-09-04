@@ -429,7 +429,7 @@ function App() {
     if (intervalId) return; // Prevent multiple intervals
 
     const id = setInterval(() => {
-      step()
+      step();
       if (cpuStatus !== "ok") {
         setInvalidLine(programCounter);
         clearInterval(id);
@@ -444,43 +444,43 @@ function App() {
       return;
     }
     const lines = code.split("\n");
+
+    let localPC = nextProgramCounter - 1; // REACT async error
     setProgramCounter(nextProgramCounter);
     
-    if (programCounter >= lines.length) {
+    if (localPC >= lines.length) {
       setCpuStatus("halt");
       return;
     }
-
-    let currentLine = lines[programCounter].trim();
-    console.log({currentLine}); // logging______________________________________________________________
-    console.log({programCounter});// logging______________________________________________________________
-    console.log({nextProgramCounter});// logging______________________________________________________________
-
+    
+    let currentLine = lines[localPC].trim();
+    console.log({currentLine, localPC, nextProgramCounter}); // logging___________________________
+    
     let [instruction, ...args] = currentLine.split(' ');
-
+    
     if (currentLine.length == 0 || instruction.startsWith("//")) {
       setNextProgramCounter(prev => prev + 1);
-      return;
+      return "ok";
     }
-
+    
     args = args.filter(arg => arg !== ''); // filter empty spaces
-
+    
     const commentIndex = args.findIndex(item => item.startsWith('//')); // filter comments
     if (commentIndex !== -1) {
       args = args.slice(0, commentIndex);
     }
-
+    
     const func = instructionSet[instruction.toLowerCase()];
     
     if (func) {
       let status = func(args);
       if (status != "ok") {
-        setInvalidLine(programCounter);
+        setInvalidLine(localPC);
       }
       setCpuStatus(status);
     } else {
       setCpuStatus("InvalidOperation");
-      setInvalidLine(programCounter);
+      setInvalidLine(localPC);
     }
 
     setNextProgramCounter(prev => prev + 1);

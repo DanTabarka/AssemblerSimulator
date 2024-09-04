@@ -9,6 +9,7 @@
 
 .line-numbers {
   width: 50px;
+  font-size: 1.5em;
   background-color: #e0e0e0;
   border-right: 2px solid #ddd;
   text-align: right;
@@ -25,6 +26,7 @@
 
 .code-input {
   flex: 1;
+  font-size: 1.5em;
   padding: 10px;
   border: 1px solid #ddd;
   box-sizing: border-box;

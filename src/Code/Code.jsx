@@ -90,6 +90,8 @@ function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, 
         <p className={`cpu-status ${cpuStatus === "ok" ? 'cpu-ok' : 'cpu-nok'}`}>
           CPU_Status: {cpuStatus}
         </p>
+        <input class='codeInput' placeholder='input...'></input>
+        <p class='codeOutput' placeholder='input...'>output</p>
       </div>
     </div>
   );
