@@ -62,7 +62,8 @@ function App() {
       }
       const register = registerMap[args[0].toUpperCase()];
 
-      registers[register] += addition;
+      let value = registers[register] + addition;
+      storeInRegister(register, value);
       return "ok";
     },
     sub: (args) => {
@@ -80,7 +81,8 @@ function App() {
       }
       const register = registerMap[args[0].toUpperCase()];
 
-      registers[register] -= subtraction;
+      let value = registers[register] - subtraction;
+      storeInRegister(register, value);
       return "ok";
     },
     mul: (args) => {
@@ -98,7 +100,8 @@ function App() {
       }
       const register = registerMap[args[0].toUpperCase()];
 
-      registers[register] *= multiplication;
+      let value = registers[register] * multiplication;
+      storeInRegister(register, value);
       return "ok";
     },
     div: (args) => {
@@ -114,9 +117,15 @@ function App() {
       } else {
         division = parseInt(args[1]);
       }
+
+      if (division === 0) {
+        return "divideByZero"
+      }
+
       const register = registerMap[args[0].toUpperCase()];
 
-      registers[register] /= division;
+      let value = Math.trunc(registers[register] / division); // becose some issue with extremly small numbers
+      storeInRegister(register, value);
       return "ok";
     },
     inc: (args) => {
@@ -128,7 +137,8 @@ function App() {
       }
       const register = registerMap[args[0].toUpperCase()];
 
-      registers[register]++;
+      let value = registers[register] + 1;
+      storeInRegister(register, value);
       return "ok";
     },
     dec: (args) => {
@@ -140,7 +150,8 @@ function App() {
       }
       const register = registerMap[args[0].toUpperCase()];
 
-      registers[register]--;
+      let value = registers[register] - 1;
+      storeInRegister(register, value);
       return "ok";
     },
     loop: (args) => {
@@ -160,15 +171,15 @@ function App() {
       if (!isRegister(args[0])) {
         return "InvalidArgument"
       }
-      let num = 0;
+      let value = 0;
       if (isRegister(args[1])) {
-        num = registers[registerMap[args[1].toUpperCase()]];
+        value = registers[registerMap[args[1].toUpperCase()]];
       } else {
-        num = parseInt(args[1]);
+        value = parseInt(args[1]);
       }
       const register = registerMap[args[0].toUpperCase()];
 
-      registers[register] = num;
+      storeInRegister(register, value);
       return "ok";
     },
     push: (args) => {
@@ -319,7 +330,8 @@ function App() {
       }
       const register = registerMap[args[0].toUpperCase()];
 
-      registers[register] <<= 1;
+      let value = registers[register] << 1;
+      storeInRegister(register, value);
       return "ok";
     },
     shr: (args) => {
@@ -331,7 +343,8 @@ function App() {
       }
       const register = registerMap[args[0].toUpperCase()];
 
-      registers[register] >>= 1;
+      let value = registers[register] >> 1;
+      storeInRegister(register, value);
       return "ok";
     },
     jz: (args) => {
@@ -400,6 +413,16 @@ function App() {
 
   function isRegister(input) {
     return registerMap[input.toUpperCase()] != null;
+  }
+
+  function storeInRegister(register, value) {
+    if (value >= 256 || value < 0) {
+      flags[flagMap["carry"]] = true;
+      value = ((value % 256) + 256) % 256; // becose JS cannot calculate the modulus of negative number
+    } else {
+      flags[flagMap["carry"]] = false;
+    }
+    registers[register] = value;
   }
 
   const run = () => {
