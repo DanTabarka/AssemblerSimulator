@@ -25,6 +25,8 @@ function App() {
   const [stackValues, setStackValues] = useState(initialStack);
   const [invalidLine, setInvalidLine] = useState(-1);
   const [cpuStatus, setCpuStatus] = useState("ok");
+  const [userInput, setUserInput] = useState("");
+  const [userOutput, setUserOutput] = useState("");
 
 
   const registerMap = {
@@ -238,9 +240,45 @@ function App() {
       return "ok";
     },
     get: (args) => {
+      if (args.length != 0) {
+        return "InvalidArgumentCount"
+      }
+      let char = 0;
+      if (userInput.length !== 0) {
+        char = userInput.charCodeAt(0);
+      }
+
+      if (stackPointer >= stackValues.length) { // push
+        return "StackOverflow"
+      }
+      stackValues[stackPointer] = char;
+      setStackPointer(prev => prev + 1);// push
+
+      setUserInput(userInput.substring(1));
       return "ok";
     },
     put: (args) => {
+      if (args.length != 0) {
+        return "InvalidArgumentCount"
+      }
+      let char = 0;
+      if (userInput.length !== 0) {
+        char = userInput.charCodeAt(0);
+      }
+
+      if (stackPointer <= 0) {
+        return "StackUnderflow"
+      }
+
+      let stackValue = stackValues[stackPointer - 1];
+      
+      if (stackValue >= 32 && stackValue <= 126) { // ASCII printable characters
+        stackValue = String.fromCharCode(stackValue);
+        setUserOutput(prev => prev + stackValue);
+      }
+
+      setStackPointer(prev => prev - 1);
+
       return "ok";
     },
     cmp: (args) => {
@@ -319,6 +357,19 @@ function App() {
       const register = registerMap[args[0].toUpperCase()];
 
       registers[register] ^= value;
+      return "ok";
+    },
+    not: (args) => {
+      if (args.length != 1) {
+        return "InvalidArgumentCount"
+      }
+      if (!isRegister(args[0])) {
+        return "InvalidArgument"
+      }
+      const register = registerMap[args[0].toUpperCase()];
+      let value = registers[register];
+
+      registers[register] = ~value & 255; // becose we need to use only 8 bits
       return "ok";
     },
     shl: (args) => {
@@ -497,6 +548,8 @@ function App() {
     setStackValues(initialStack);
     setInvalidLine(-1);
     setCpuStatus("ok");
+    setUserInput("");
+    setUserOutput("");
   };
 
   return (
@@ -514,6 +567,9 @@ function App() {
                 setCode={setCode}
                 invalidLine={invalidLine}
                 cpuStatus={cpuStatus}
+                userInput={userInput}
+                setUserInput={setUserInput}
+                userOutput={userOutput}
           />
           <Registers  registers={registers}
                       programCounter={programCounter}

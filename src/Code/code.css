@@ -39,14 +39,14 @@
 }
 
 .highlight {
-  background-color: #428BCA;;
+  background-color: #428BCA;
   color: white;
   font-weight: bold;
   font-style: italic;
 }
 
 .next {
-  background-color: #f5f500;;
+  background-color: #f5f500;
   color: black;
   font-weight: bold;
   font-style: italic;
@@ -81,4 +81,23 @@
 .cpu-nok {
   color: white;
   background-color: red;
+}
+
+.input {
+  padding: 5px;
+  font-size: 1.2em;
+}
+
+.output {
+  margin: 5px;
+  padding: 10px;
+  background-color: #e9e8e8;
+  color: black;
+  font-weight: bold;
+}
+
+.output-highlight {
+  background-color: #428BCA;
+  color: white;
+  padding: 5px;
 }

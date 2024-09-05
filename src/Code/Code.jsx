@@ -2,7 +2,7 @@ import './code.css';
 import React, { useState, useRef, useEffect } from 'react';
 
 
-function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, cpuStatus }) {
+function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, cpuStatus, userInput, setUserInput, userOutput }) {
   const codeInputRef = useRef(null);
   const lineNumbersRef = useRef(null);
   // const highlightRef = useRef(null);
@@ -90,8 +90,12 @@ function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, 
         <p className={`cpu-status ${cpuStatus === "ok" ? 'cpu-ok' : 'cpu-nok'}`}>
           CPU_Status: {cpuStatus}
         </p>
-        <input class='codeInput' placeholder='input...'></input>
-        <p class='codeOutput' placeholder='input...'>output</p>
+        <input  class='input'
+                placeholder='input...'
+                value={userInput}
+                onChange={event => setUserInput(event.target.value)}
+        ></input>
+        <p class='output'>Output: <span className='output-highlight'>{userOutput}</span></p>
       </div>
     </div>
   );
