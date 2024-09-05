@@ -271,7 +271,7 @@ function App() {
       }
 
       let stackValue = stackValues[stackPointer - 1];
-      
+
       if (stackValue >= 32 && stackValue <= 126) { // ASCII printable characters
         stackValue = String.fromCharCode(stackValue);
         setUserOutput(prev => prev + stackValue);

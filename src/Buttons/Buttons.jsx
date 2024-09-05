@@ -16,6 +16,7 @@ function Buttons({ onRun, onStep, onReset}) {
         style={{
           marginLeft: catchMe ? "150px" : "10px",
         }}
+        onClick={() => alert("How???😮")}
         className='catchMe'
         onMouseEnter={() => setCatchMe(!catchMe)}
       >

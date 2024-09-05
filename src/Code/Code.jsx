@@ -95,7 +95,7 @@ function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, 
                 value={userInput}
                 onChange={event => setUserInput(event.target.value)}
         ></input>
-        <p class='output'>Output: <span className='output-highlight'>{userOutput}</span></p>
+        <p class='output'><span className='output-highlight'>Output:</span> {userOutput}</p>
       </div>
     </div>
   );
