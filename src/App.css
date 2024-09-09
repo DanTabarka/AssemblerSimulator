@@ -9,3 +9,17 @@
   padding-top: 20px;
 }
 
+.scroll-bar-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #cdcdcd;
+  height: 8px;
+}
+
+.scroll-bar {
+  height: 100%;
+  background: #428BCA; /* Barva, která se zobrazuje podle scrollování */
+  transition: width 0.3s ease;
+}

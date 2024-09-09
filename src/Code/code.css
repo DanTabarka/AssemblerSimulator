@@ -44,7 +44,6 @@
   height: 50% !important; /* Nastavte výšku na 100% rodičovského elementu */
 }
 
-
 .highlight {
   background-color: #428BCA;
   color: white !important;
@@ -73,12 +72,17 @@
   height: 100vh;
 }
 
+.inout-container {
+  background-color: #dadada;
+}
+
 .cpu-status {
-  margin-top: 5px;
+  margin-top: 0px;
+  margin-bottom: 12px;
   padding: 5px;
-  background-color: #e9e8e8;
-  border-top: 1px solid #ddd;
+  /* border-top: 1px solid #ddd; */
   font-family: Arial, sans-serif;
+  font-size: 1.2em;
   font-weight: bold;
 }
 
@@ -101,7 +105,6 @@
   margin: 5px;
   margin-left: 0px;
   padding: 10px;
-  background-color: #e9e8e8;
   color: black;
   font-weight: bold;
 }

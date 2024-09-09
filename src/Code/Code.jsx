@@ -97,17 +97,19 @@ function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, 
           // onScroll={syncScroll}
           placeholder="Write assembler code here..."
         />
-        <p className={`cpu-status ${cpuStatus === "ok" ? 'cpu-ok' : 'cpu-nok'}`}>
-          CPU_Status: {cpuStatus}
-        </p>
-        <div className='input-container'>
-          <p class='inout'><span className='inout-highlight'>Input:</span></p>
-          <input  class='input'
-                  value={userInput}
-                  onChange={event => setUserInput(event.target.value)}
-          ></input>
+        <div className='inout-container'>
+          <p className={`cpu-status ${cpuStatus === "ok" ? 'cpu-ok' : 'cpu-nok'}`}>
+            CPU_Status: {cpuStatus}
+          </p>
+          <div className='input-container'>
+            <p class='inout'><span className='inout-highlight'>Input:</span></p>
+            <input  class='input'
+                    value={userInput}
+                    onChange={event => setUserInput(event.target.value)}
+            ></input>
+          </div>
+          <p class='inout'><span className='inout-highlight'>Output:</span> <span className='user-output'>{userOutput}</span></p>
         </div>
-        <p class='inout'><span className='inout-highlight'>Output:</span> <span className='user-output'>{userOutput}</span></p>
       </div>
     </div>
   );

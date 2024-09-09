@@ -6,12 +6,12 @@ import Code from './Code/Code.jsx';
 import Registers from './Registers/Registers.jsx';
 import Stack from './Stack/Stack.jsx';
 import Buttons from './Buttons/Buttons.jsx';
+import ProcessorInstructions from './ProcessorInstructions/ProcessorInstructions.jsx'
 import Description from './Info/Description.jsx';
 import Instructions from './Info/Instructions.jsx';
 
 
 function App() {
-
   const [intervalId, setIntervalId] = useState(null);
   const [code, setCode] = useState("");
   const initialRegisters = [0, 0, 0, 0];
@@ -27,7 +27,8 @@ function App() {
   const [cpuStatus, setCpuStatus] = useState("ok");
   const [userInput, setUserInput] = useState("");
   const [userOutput, setUserOutput] = useState("");
-
+  const [scrollPercentage, setScrollPercentage] = useState(0);
+  
 
   const registerMap = {
     A: 0,
@@ -537,6 +538,24 @@ function App() {
     setNextProgramCounter(prev => prev + 1);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+
+      const percentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
+      setScrollPercentage(percentage);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   const reset = () => {
     setProgramCounter(0);
     setNextProgramCounter(1);
@@ -580,10 +599,19 @@ function App() {
         </div>
       </div>
 
+      <div className="scroll-bar-container">
+        <div
+          className="scroll-bar"
+          style={{ width: `${scrollPercentage}%` }}
+        ></div>
+      </div>
+
       {/* <Routes>
         <Route path="/description" element={<Description />}></Route>
         <Route path="/instructions" element={<Instructions />}></Route>
       </Routes> */}
+
+      <ProcessorInstructions />
     </Router>
   );
 }
