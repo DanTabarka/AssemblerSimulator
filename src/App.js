@@ -507,8 +507,8 @@ function App() {
     let currentLine = lines[localPC].trim();
     console.log({currentLine, localPC, nextProgramCounter}); // logging___________________________
     
-    let [instruction, ...args] = currentLine.split(' ');
-    
+    let [instruction, ...args] = currentLine.split(/\s+/);
+
     if (currentLine.length == 0 || instruction.startsWith("//")) {
       setNextProgramCounter(prev => prev + 1);
       return "ok";

@@ -4,6 +4,7 @@
   width: 40%;
   height: 60%;
   padding: 0;
+  margin-left: 20px;
   border-right: 2px solid #ddd;
 }
 
@@ -38,23 +39,29 @@
   /* height: 500px; */
 }
 
+.CodeMirror {
+  font-size: 22px; /* Změňte velikost písma podle potřeby */
+  height: 50% !important; /* Nastavte výšku na 100% rodičovského elementu */
+}
+
+
 .highlight {
   background-color: #428BCA;
-  color: white;
+  color: white !important;
   font-weight: bold;
   font-style: italic;
 }
 
 .next {
   background-color: #f5f500;
-  color: black;
+  color: black !important;
   font-weight: bold;
   font-style: italic;
 }
 
 .invalid {
   background-color: rgb(255, 0, 0);
-  color: white;
+  color: white !important;
   font-weight: bold;
   font-style: italic;
 }
@@ -63,6 +70,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  height: 100vh;
 }
 
 .cpu-status {
@@ -89,7 +97,7 @@
   margin-left: 5px;
 }
 
-.output {
+.inout {
   margin: 5px;
   margin-left: 0px;
   padding: 10px;
@@ -98,8 +106,22 @@
   font-weight: bold;
 }
 
-.output-highlight {
+.inout-highlight {
   background-color: #428BCA;
   color: white;
   padding: 5px 2px 5px 2px;
+  font-size: 1.2em;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  flex: 1;
+}
+
+.user-output {
+  font-size: 1.5em;
 }
