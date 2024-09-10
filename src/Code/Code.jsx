@@ -8,40 +8,6 @@ import CodeMirror from 'codemirror';
 
 function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, cpuStatus, userInput, setUserInput, userOutput }) {
   const codeInputRef = useRef(null);
-  // const lineNumbersRef = useRef(null);
-  // const highlightRef = useRef(null);
-
-  // const updateLineNumbers = () => {
-  //   const lines = code.split('\n');
-  //   let lineNumberText = '';
-  //   for (let i = 1; i <= lines.length; i++) {
-  //     if (i === invalidLine + 1) {
-  //       lineNumberText += `<span class="invalid">${i}</span>\n`;
-  //     } else if (i === programCounter){
-  //       lineNumberText += `<span class="highlight">${i}</span>\n`;
-  //     } else if (i === nextProgramCounter && programCounter + 1 != nextProgramCounter) {
-  //       lineNumberText += `<span class="next">${i}</span>\n`;
-  //     } else {
-  //       lineNumberText += `${i}\n`;
-  //     }
-  //   }
-  //   lineNumbersRef.current.innerHTML = lineNumberText;
-  // };
-
-
-
-  // const syncTextarea = () => {
-  //   if (codeInputRef.current && codeInputRef.current) {
-  //     codeInputRef.current.textContent = code;
-  //   }
-  // };
-
-
-  // const syncScroll = () => {
-  //   if (codeInputRef.current && lineNumbersRef.current) {
-  //     lineNumbersRef.current.scrollTop = codeInputRef.current.scrollTop;
-  //   }
-  // };
 
   useEffect(() => {
     if (codeInputRef.current) {
@@ -62,13 +28,23 @@ function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, 
         );
       };
 
+      const clearAllHighlights = () => { 
+        editor.getAllMarks().forEach(mark => mark.clear());   // becose there is LineClass and markText
+        const lineCount = editor.lineCount();
+        for (let i = 0; i < lineCount; i++) {
+          editor.removeLineClass(i, 'background', 'highlight');
+          editor.removeLineClass(i, 'background', 'next');
+          editor.removeLineClass(i, 'background', 'invalid');
+        }
+      };
+
       const updateHighlights = () => {
-        editor.getAllMarks().forEach(mark => mark.clear()); // Clear existing highlights
+        clearAllHighlights();
         if (programCounter) highlightLine(programCounter, 'highlight');
         if (nextProgramCounter && programCounter + 1 !== nextProgramCounter) highlightLine(nextProgramCounter, 'next');
         if (invalidLine !== -1) highlightLine(invalidLine + 1, 'invalid');
       };
-
+      
       updateHighlights();
 
       // Při změně textu v editoru
@@ -82,7 +58,6 @@ function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, 
       };
     }
   }, [programCounter, nextProgramCounter, invalidLine]);
-
 
 
   return (
@@ -102,13 +77,13 @@ function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, 
             CPU_Status: {cpuStatus}
           </p>
           <div className='input-container'>
-            <p class='inout'><span className='inout-highlight'>Input:</span></p>
-            <input  class='input'
+            <p className='inout'><span className='inout-highlight'>Input:</span></p>
+            <input  className='input'
                     value={userInput}
                     onChange={event => setUserInput(event.target.value)}
             ></input>
           </div>
-          <p class='inout'><span className='inout-highlight'>Output:</span> <span className='user-output'>{userOutput}</span></p>
+          <p className='inout'><span className='inout-highlight'>Output:</span> <span className='user-output'>{userOutput}</span></p>
         </div>
       </div>
     </div>
