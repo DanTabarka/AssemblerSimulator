@@ -17,6 +17,8 @@ function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, 
         theme: 'default',
         tabSize: 8, // Velikost tabulátoru
         smartIndent: false, // Zakázat chytré odsazení
+        lineWrapping: true, // Povolit zalamování řádků
+        viewportMargin: Infinity, // Rozšíření viewportu
       });
 
       const highlightLine = (lineNumber, className) => {

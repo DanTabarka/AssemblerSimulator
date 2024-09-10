@@ -20,8 +20,9 @@ hexadecimálně: 0xC8
 binárně: 11001000`}
             </pre>
         </div>
-        <h1>Program Hello world!</h1>
-        <pre>
+        <div className="instruction">
+            <h1>Program Hello world!</h1>
+            <pre>
 {`movr a 111
 movr b 108
 movr c 101
@@ -57,9 +58,11 @@ push 58		// :
 put
 put
 halt`}
-        </pre>
-        <h1>Program Cyklus</h1>
-        <pre>
+            </pre>
+        </div>
+        <div className="instruction">
+            <h1>Program Cyklus</h1>
+            <pre>
 {`movr c 5	// pocet cyklu
 
 // zacatek cyklu
@@ -71,6 +74,60 @@ loop 3		// cyklus
 
 halt		// konec`}
             </pre>
+        </div>
+        <div className="instruction">
+            <h1>Program Tutorial</h1>
+            <pre>
+{`// Inicializace zásobníku
+PUSH 10      // Push první číslo na zásobník
+PUSH 20      // Push druhé číslo na zásobník
+
+// Načíst čísla ze zásobníku do registrů
+POP B        // Registr B = 20
+POP C        // Registr C = 10
+
+// Sčítání čísel
+ADD B C      // Registr B = 20 + 10 = 30
+
+// Rozdělení výsledku na 2
+MOVR D 10       // Nastavit registr D na 10
+PUSH 2       // Push číslo 2 na zásobník
+POP D        // Registr D = 2
+
+// Dělení
+DIV B D      // Registr B = 30 / 2 = 15
+
+// Prohození hodnot registrů
+SWAP D B      // Registr D <=> B
+
+// Zvýšení hodnoty v registru D
+INC D        // Registr D = 15 + 1 = 16
+
+// Srovnání
+CMP D 16     // Porovnat registr D (16) s číslem 16
+JZ 24       // Skok, pokud jsou stejné
+LOOP 32     // preskoci HALT
+HALT                    // Ukončit program
+
+// Logické operace
+MOVR A 5      // Nastavit registr A na 5
+MOVR B 3      // Nastavit registr B na 3
+
+AND A B      // Logický AND mezi registry A a B (101 & 011 = 001)
+OR A B       // Logický OR mezi registry A a B (001 | 011 = 011)
+XOR A B      // Logický XOR mezi registry A a B (011 ^ 011 = 000)
+
+// Posun bitů
+PUSH 4       // Push číslo 4 na zásobník
+POP D        // Registr D = 4
+SHL D        // Posun vlevo (4 << 1 = 8)
+
+// Skočit na konec programu
+LOOP 30       // Skok na konec programu
+
+HALT                    // Ukončit program`}
+            </pre>
+        </div>
         <h1>Instrukce</h1>
         <div className="instruction">
             <h3>Bez operace</h3>
@@ -117,7 +174,7 @@ DEC reg           // Decrease`}
         <div className="instruction">
             <h3>Vložení hodnoty do registru</h3>
             <pre>
-{`MOV reg          // Move to registr`}
+{`MOVR reg          // Move to registr`}
             </pre>
             <p>Vloží do registru konstantu zapsanou desítkově</p>
         </div>
