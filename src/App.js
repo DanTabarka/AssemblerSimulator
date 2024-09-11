@@ -616,7 +616,8 @@ function App() {
         <Route path="/instructions" element={<Instructions />}></Route>
       </Routes> */}
 
-      <ProcessorInstructions />
+      <ProcessorInstructions setCode={setCode} setInvalidLine={setInvalidLine} /> {/* invalid line set to -2 is
+                                                                        to sync code when i click on button*/}
     </Router>
   );
 }

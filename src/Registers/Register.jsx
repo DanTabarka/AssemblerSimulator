@@ -8,12 +8,11 @@ function Register({name, value, data, lastUsedRegister = -2}) {
   const binValue = value.toString(2).padStart(8, '0');
   const decValue = value.toString(10).padStart(3, '0');
 
-  console.log(lastUsedRegister);
-
+  
   return (
     <div className='register-item'>
         <h3 className='tooltip' data-tooltip={`${data}`}>{name}</h3>
-        <p className={`value ${lastUsedRegister === registers.indexOf(name) ? 'highlight22' : ''}`}>0x{hexValue} : {decValue} : {binValue}</p>
+        <p className={`value ${lastUsedRegister === registers.indexOf(name) ? 'highlightRegister' : ''}`}>0x{hexValue} : {decValue} : {binValue}</p>
     </div>
   );
 }

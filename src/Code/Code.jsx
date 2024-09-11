@@ -47,6 +47,7 @@ function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, 
         if (invalidLine !== -1) highlightLine(invalidLine + 1, 'invalid');
       };
       
+      editor.setValue(code);
       updateHighlights();
 
       // Při změně textu v editoru
@@ -69,7 +70,6 @@ function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, 
         <textarea
           ref={codeInputRef}
           className="code-input"
-          value={code}
           onChange={(e) => setCode(e.target.value)}
           // onScroll={syncScroll}
           placeholder="Write assembler code here..."

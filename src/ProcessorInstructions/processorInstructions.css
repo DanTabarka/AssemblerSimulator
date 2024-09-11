@@ -21,6 +21,23 @@ h1 {
     padding: 10px;
 }
 
+button {
+    background-color: #306797;
+    color: white;
+    padding: 5px 10px;
+    display: inline-block;
+    font-size: 0.7em;
+    margin: 10px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #428BCA;
+    transform: scale(0.95);
+}
+
 .instruction {
     margin: 20px 5px 20px 5px;
 }
