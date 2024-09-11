@@ -21,7 +21,7 @@ h1 {
     padding: 10px;
 }
 
-.run{
+.setCode{
     background-color: #306797;
     color: white;
     padding: 5px 10px;
@@ -33,7 +33,7 @@ h1 {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.run:hover {
+.setCode:hover {
     background-color: #428BCA;
     transform: scale(0.95);
 }

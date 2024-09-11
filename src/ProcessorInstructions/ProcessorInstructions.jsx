@@ -243,7 +243,7 @@ JNS num         // Jump if Not Sign`}
         <div className="instruction">            {/* _______________programy section__________________________ */}
             <h1>Program Hello world!
             <button 
-                className="run"
+                className="setCode"
                 onClick={() => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 setCode(helloWorld);
@@ -254,7 +254,7 @@ JNS num         // Jump if Not Sign`}
         <div className="instruction">
             <h1>Program Cyklus 
             <button 
-                className="run"
+                className="setCode"
                 onClick={() => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 setCode(cycle);
@@ -265,7 +265,7 @@ JNS num         // Jump if Not Sign`}
         <div className="instruction">
             <h1>Program Tutorial 
             <button 
-                className="run"
+                className="setCode"
                 onClick={() => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 setCode(tutorial);
