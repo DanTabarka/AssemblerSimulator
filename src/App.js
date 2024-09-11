@@ -29,6 +29,7 @@ function App() {
   const [userOutput, setUserOutput] = useState("");
   const [scrollPercentage, setScrollPercentage] = useState(0);
   const [lastUsedRegister, setLastUsedRegister] = useState(-1);
+  const [run, setRun] = useState(false);
   
 
   const registerMap = {
@@ -479,19 +480,7 @@ function App() {
     setLastUsedRegister(register);
   }
 
-  const run = () => {
-    if (intervalId) return; // Prevent multiple intervals
-
-    const id = setInterval(() => {
-      step();
-      if (cpuStatus !== "ok") {
-        setInvalidLine(programCounter);
-        clearInterval(id);
-        setIntervalId(null);
-      }
-    }, 1000);
-    setIntervalId(id);
-  };
+  
 
   const step = () => {
     if (cpuStatus !== "ok") {
@@ -559,7 +548,30 @@ function App() {
     };
   }, []);
 
+  const [runStep, setRunStep] = useState(false);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (run) {
+        setRunStep(true);
+        if (cpuStatus !== "ok" ) {
+          setRun(false);
+        }
+      }
+    }, 1000);
+
+    return () => clearInterval(id);
+  }, [run]);
+
+  useEffect(() => {
+    if (runStep) {
+      step();
+      setRunStep(false);
+    }
+  }, [runStep]);
+
   const reset = () => {
+    setRun(false);
     setProgramCounter(0);
     setNextProgramCounter(1);
     clearInterval(intervalId);
@@ -579,7 +591,7 @@ function App() {
     <Router>
       <div className="App">
         <Buttons 
-          onRun={run}
+          onRun={() => setRun(true)}
           onStep={step} 
           onReset={reset} 
         />
