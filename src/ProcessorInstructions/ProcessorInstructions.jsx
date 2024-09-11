@@ -1,9 +1,9 @@
 import "./processorInstructions.css"
 
-function ProcessorInstructions ({ setCode, setInvalidLine }) {
+function ProcessorInstructions ({ setCode, invalidLine, setInvalidLine }) {
 
     let sync = () => {
-        setInvalidLine(-2); // this is to resync code in textarea
+        setInvalidLine(invalidLine - 1); // this is to resync code in textarea
     };
 
     const helloWorld = `movr a 111
