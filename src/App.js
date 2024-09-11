@@ -28,6 +28,7 @@ function App() {
   const [userInput, setUserInput] = useState("");
   const [userOutput, setUserOutput] = useState("");
   const [scrollPercentage, setScrollPercentage] = useState(0);
+  const [lastUsedRegister, setLastUsedRegister] = useState(-1);
   
 
   const registerMap = {
@@ -475,6 +476,7 @@ function App() {
       flags[flagMap["carry"]] = false;
     }
     registers[register] = value;
+    setLastUsedRegister(register);
   }
 
   const run = () => {
@@ -499,6 +501,7 @@ function App() {
 
     let localPC = nextProgramCounter - 1; // REACT async error
     setProgramCounter(nextProgramCounter);
+    setLastUsedRegister(-1);
     
     if (localPC >= lines.length) {
       setCpuStatus("halt");
@@ -569,6 +572,7 @@ function App() {
     setCpuStatus("ok");
     setUserInput("");
     setUserOutput("");
+    setLastUsedRegister(-1);
   };
 
   return (
@@ -591,6 +595,7 @@ function App() {
                 userOutput={userOutput}
           />
           <Registers  registers={registers}
+                      lastUsedRegister={lastUsedRegister}
                       programCounter={programCounter}
                       stackPointer={stackPointer}
                       flags={flags}

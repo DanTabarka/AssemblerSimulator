@@ -26,6 +26,10 @@
   height: 50% !important;
 }
 
+.CodeMirror-gutters {
+  background-color: #ececec !important; /* Zmeni barvu pod cislovanim */
+}
+
 .highlight {
   background-color: #428BCA;
   color: white !important;
@@ -55,7 +59,7 @@
 }
 
 .inout-container {
-  background-color: #dadada;
+  background-color: #ececec;
 }
 
 .cpu-status {

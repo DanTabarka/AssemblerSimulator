@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import './registers.css';
 import Register from './Register.jsx'
 
-function Registers({ registers, programCounter, stackPointer, flags }) {
+function Registers({ registers, lastUsedRegister, programCounter, stackPointer, flags }) {
 
   return (
     <div className='registersDiv'>
       <h2>Registers</h2>
-      <Register name='A' value={registers[0]} data='Registr A' />
-      <Register name='B' value={registers[1]} data='Registr B' />
-      <Register name='C' value={registers[2]} data='Registr C' />
-      <Register name='D' value={registers[3]} data='Registr D' />
+      <Register name='A' value={registers[0]} data='Registr A' lastUsedRegister={lastUsedRegister} />
+      <Register name='B' value={registers[1]} data='Registr B' lastUsedRegister={lastUsedRegister} />
+      <Register name='C' value={registers[2]} data='Registr C' lastUsedRegister={lastUsedRegister} />
+      <Register name='D' value={registers[3]} data='Registr D' lastUsedRegister={lastUsedRegister} />
 
       <br/><br/>
 
