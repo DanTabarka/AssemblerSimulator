@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/AssemblerSimulator/static/css/main.e144e349.css",
-    "main.js": "/AssemblerSimulator/static/js/main.e56c548e.js",
+    "main.js": "/AssemblerSimulator/static/js/main.475e5deb.js",
     "static/js/453.d07ae2b1.chunk.js": "/AssemblerSimulator/static/js/453.d07ae2b1.chunk.js",
     "index.html": "/AssemblerSimulator/index.html",
     "main.e144e349.css.map": "/AssemblerSimulator/static/css/main.e144e349.css.map",
-    "main.e56c548e.js.map": "/AssemblerSimulator/static/js/main.e56c548e.js.map",
+    "main.475e5deb.js.map": "/AssemblerSimulator/static/js/main.475e5deb.js.map",
     "453.d07ae2b1.chunk.js.map": "/AssemblerSimulator/static/js/453.d07ae2b1.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e144e349.css",
-    "static/js/main.e56c548e.js"
+    "static/js/main.475e5deb.js"
   ]
 }
