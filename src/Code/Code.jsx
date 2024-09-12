@@ -49,6 +49,7 @@ function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, 
       
       editor.setValue(code);
       updateHighlights();
+      editor.scrollIntoView({ line: programCounter, ch: 0 });
 
       // Při změně textu v editoru
       editor.on('change', () => {

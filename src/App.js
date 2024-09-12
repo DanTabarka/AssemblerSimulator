@@ -553,12 +553,12 @@ function App() {
   useEffect(() => {
     const id = setInterval(() => {
       if (run) {
-        setRunStep(true);
         if (cpuStatus !== "ok" ) {
           setRun(false);
         }
+        setRunStep(true);
       }
-    }, 1000);
+    }, 500);
 
     return () => clearInterval(id);
   }, [run]);
@@ -588,10 +588,12 @@ function App() {
   };
 
   return (
-    <Router>
+    <div>
       <div className="App">
         <Buttons 
+          run={run}
           onRun={() => setRun(true)}
+          onStop={() => setRun(false)}
           onStep={step} 
           onReset={reset} 
         />
@@ -623,14 +625,9 @@ function App() {
         ></div>
       </div>
 
-      {/* <Routes>
-        <Route path="/description" element={<Description />}></Route>
-        <Route path="/instructions" element={<Instructions />}></Route>
-      </Routes> */}
-
       <ProcessorInstructions setCode={setCode} invalidLine={invalidLine} setInvalidLine={setInvalidLine} />
               {/* invalid line set to -2 is to sync code when i click on button*/}
-    </Router>
+    </div>
   );
 }
 

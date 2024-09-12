@@ -40,7 +40,8 @@ push 41		// )
 push 58		// :
 put
 put
-halt`;
+halt
+`;
 
     let cycle = `movr c 5	// pocet cyklu
 
@@ -51,7 +52,8 @@ cmp c 0		// porovnani
 jz 10		// pokud Zero tak vyskoci ven z cyklu
 loop 3		// cyklus
 
-halt		// konec`;
+halt		// konec
+`;
 
     let tutorial = `// Inicializace zásobníku
 PUSH 10      // Push první číslo na zásobník
@@ -100,12 +102,13 @@ SHL D        // Posun vlevo (4 << 1 = 8)
 // Skočit na konec programu
 LOOP 30       // Skok na konec programu
 
-HALT                    // Ukončit program`;
+HALT                    // Ukončit program
+`;
 
 
     return (
         <div className="container">
-        <h1>Úvod</h1>                            {/* _______________uvod section__________________________ */}
+        <h1 id="introduction">Úvod</h1>              {/* _______________uvod section__________________________ */}
         <div className="instruction">
             <h3>Syntax</h3>
             <pre>
@@ -120,7 +123,7 @@ hexadecimálně: 0xC8
 binárně: 11001000`}
             </pre>
         </div>
-        <h1>Instrukce</h1>                       {/* _______________instrukce section_________________________ */}
+        <h1 id="instructions">Instrukce</h1>   {/* _______________instrukce section_________________________ */}
         <div className="instruction">
             <h3>Bez operace</h3>
             <pre>

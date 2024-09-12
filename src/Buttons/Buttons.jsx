@@ -3,13 +3,17 @@ import { useState } from 'react';
 import { Link } from "react-router-dom";
 
 
-function Buttons({ onRun, onStep, onReset}) {
+function Buttons({ run, onRun, onStop, onStep, onReset}) {
   const [catchMe, setCatchMe] = useState(false);
 
   return (
     <div className='buttonsLine'>
       <div className="button-group left">
-        <button className='run' onClick={onRun}>▶️ Run</button>
+        {run ? (
+          <button className='stop' onClick={onStop}>⏹️ Stop</button>
+        ) : (
+          <button className='run' onClick={onRun}>▶️ Run</button>
+        )}
         <button className='step' onClick={onStep}>⏩ Step</button>
         <button className='reset' onClick={onReset}>🔄 Reset</button>
         <button
@@ -24,8 +28,17 @@ function Buttons({ onRun, onStep, onReset}) {
       </button>
       </div>
       <div className="button-group right">
-        <button className='info'><Link className='link' to={"/description"}>🔍 popis simulátoru</Link></button>
-        <button className='info'><Link className='link' to={"/instructions"}>📝 instrukce procesoru</Link></button>
+        <button className='info' 
+                onClick={() => document.getElementById('introduction').scrollIntoView({ behavior: 'smooth' })}
+        >
+                🔍 popis simulátoru
+        </button>
+        <button className='info'
+                onClick={() => document.getElementById('instructions').scrollIntoView({ behavior: 'smooth' })}
+        >
+                📝 instrukce procesoru
+        </button>
+
       </div>
     </div>
     
