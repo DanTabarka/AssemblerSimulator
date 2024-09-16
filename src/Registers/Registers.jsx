@@ -5,7 +5,7 @@ import Register from './Register.jsx'
 function Registers({ registers, lastUsedRegister, programCounter, stackPointer, flags }) {
 
   return (
-    <div className='registersDiv'>
+    <div className='registers-div'>
       <h2>Registers</h2>
       <Register name='A' value={registers[0]} data='Registr A' lastUsedRegister={lastUsedRegister} />
       <Register name='B' value={registers[1]} data='Registr B' lastUsedRegister={lastUsedRegister} />
@@ -19,7 +19,7 @@ function Registers({ registers, lastUsedRegister, programCounter, stackPointer, 
 
       <br/>
 
-      <table>
+      <table className='registers-table'>
             <thead>
                 <tr>
                   <th className="tooltip" data-tooltip="Sign flag">S</th>

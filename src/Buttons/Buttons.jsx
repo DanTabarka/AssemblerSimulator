@@ -38,6 +38,11 @@ function Buttons({ run, onRun, onStop, onStep, onReset}) {
         >
                 📝 instrukce procesoru
         </button>
+        <button className='info'
+                onClick={() => document.getElementById('programs').scrollIntoView({ behavior: 'smooth' })}
+        >
+                ⚙ programy
+        </button>
 
       </div>
     </div>

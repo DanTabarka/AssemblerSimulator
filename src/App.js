@@ -1,14 +1,11 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 
 import Code from './Code/Code.jsx';
 import Registers from './Registers/Registers.jsx';
 import Stack from './Stack/Stack.jsx';
 import Buttons from './Buttons/Buttons.jsx';
-import ProcessorInstructions from './ProcessorInstructions/ProcessorInstructions.jsx'
-import Description from './Info/Description.jsx';
-import Instructions from './Info/Instructions.jsx';
+import ProcessorInstructions from './Info/ProcessorInstructions.jsx'
 
 
 function App() {
@@ -30,22 +27,24 @@ function App() {
   const [scrollPercentage, setScrollPercentage] = useState(0);
   const [lastUsedRegister, setLastUsedRegister] = useState(-1);
   const [run, setRun] = useState(false);
+  const [runStep, setRunStep] = useState(false);
+
   
 
-  const registerMap = {
+  const registersMap = {
     A: 0,
     B: 1,
     C: 2,
     D: 3
   };
 
-  const flagMap = {
+  const flagsMap = {
     "sign": 0,
     "zero": 1,
     "carry": 2
   }
 
-  const instructionSet = {
+  const instructionsSet = {
     nop : (args) =>{
       if (args.length != 0) {
         return "InvalidArgumentCount"
@@ -61,11 +60,11 @@ function App() {
       }
       let addition = 0;
       if (isRegister(args[1])) {
-        addition = registers[registerMap[args[1].toUpperCase()]];
+        addition = registers[registersMap[args[1].toUpperCase()]];
       } else {
         addition = parseInt(args[1]);
       }
-      const register = registerMap[args[0].toUpperCase()];
+      const register = registersMap[args[0].toUpperCase()];
 
       let value = registers[register] + addition;
       storeInRegister(register, value);
@@ -80,11 +79,11 @@ function App() {
       }
       let subtraction = 0;
       if (isRegister(args[1])) {
-        subtraction = registers[registerMap[args[1].toUpperCase()]];
+        subtraction = registers[registersMap[args[1].toUpperCase()]];
       } else {
         subtraction = parseInt(args[1]);
       }
-      const register = registerMap[args[0].toUpperCase()];
+      const register = registersMap[args[0].toUpperCase()];
 
       let value = registers[register] - subtraction;
       storeInRegister(register, value);
@@ -99,11 +98,11 @@ function App() {
       }
       let multiplication = 0;
       if (isRegister(args[1])) {
-        multiplication = registers[registerMap[args[1].toUpperCase()]];
+        multiplication = registers[registersMap[args[1].toUpperCase()]];
       } else {
         multiplication = parseInt(args[1]);
       }
-      const register = registerMap[args[0].toUpperCase()];
+      const register = registersMap[args[0].toUpperCase()];
 
       let value = registers[register] * multiplication;
       storeInRegister(register, value);
@@ -118,7 +117,7 @@ function App() {
       }
       let division = 0;
       if (isRegister(args[1])) {
-        division = registers[registerMap[args[1].toUpperCase()]];
+        division = registers[registersMap[args[1].toUpperCase()]];
       } else {
         division = parseInt(args[1]);
       }
@@ -127,7 +126,7 @@ function App() {
         return "divideByZero"
       }
 
-      const register = registerMap[args[0].toUpperCase()];
+      const register = registersMap[args[0].toUpperCase()];
 
       let value = Math.trunc(registers[register] / division); // becose some issue with extremly small numbers
       storeInRegister(register, value);
@@ -140,7 +139,7 @@ function App() {
       if (!isRegister(args[0])) {
         return "InvalidArgument"
       }
-      const register = registerMap[args[0].toUpperCase()];
+      const register = registersMap[args[0].toUpperCase()];
 
       let value = registers[register] + 1;
       storeInRegister(register, value);
@@ -153,7 +152,7 @@ function App() {
       if (!isRegister(args[0])) {
         return "InvalidArgument"
       }
-      const register = registerMap[args[0].toUpperCase()];
+      const register = registersMap[args[0].toUpperCase()];
 
       let value = registers[register] - 1;
       storeInRegister(register, value);
@@ -178,11 +177,11 @@ function App() {
       }
       let value = 0;
       if (isRegister(args[1])) {
-        value = registers[registerMap[args[1].toUpperCase()]];
+        value = registers[registersMap[args[1].toUpperCase()]];
       } else {
         value = parseInt(args[1]);
       }
-      const register = registerMap[args[0].toUpperCase()];
+      const register = registersMap[args[0].toUpperCase()];
 
       storeInRegister(register, value);
       return "ok";
@@ -197,7 +196,7 @@ function App() {
 
       let value = 0;
       if (isRegister(args[0])) {
-        value = registers[registerMap[args[0].toUpperCase()]];
+        value = registers[registersMap[args[0].toUpperCase()]];
       } else {
         value = parseInt(args[0]);
       }
@@ -218,7 +217,7 @@ function App() {
       if (!isRegister(args[0])) {
         return "InvalidArgument"
       }
-      let register = registerMap[args[0].toUpperCase()];
+      let register = registersMap[args[0].toUpperCase()];
       let stackValue = stackValues[stackPointer - 1];
 
       registers[register] = stackValue;
@@ -234,8 +233,8 @@ function App() {
       if (!isRegister(args[0]) || !isRegister(args[1])) {
         return "InvalidArgument"
       }
-      const register1 = registerMap[args[0].toUpperCase()];
-      const register2 = registerMap[args[1].toUpperCase()];
+      const register1 = registersMap[args[0].toUpperCase()];
+      const register2 = registersMap[args[1].toUpperCase()];
 
       const tmp = registers[register1];
       registers[register1] = registers[register2];
@@ -290,22 +289,22 @@ function App() {
       }
       let num1 = 0;
       if (isRegister(args[0])) {
-        num1 = registers[registerMap[args[0].toUpperCase()]];
+        num1 = registers[registersMap[args[0].toUpperCase()]];
       } else {
         num1 = parseInt(args[0]);
       }
 
       let num2 = 0;
       if (isRegister(args[1])) {
-        num2 = registers[registerMap[args[1].toUpperCase()]];
+        num2 = registers[registersMap[args[1].toUpperCase()]];
       } else {
         num2 = parseInt(args[1]);
       }
 
       const value = num1 - num2;
 
-      flags[flagMap["sign"]] = value >= 0;
-      flags[flagMap["zero"]] = value == 0;
+      flags[flagsMap["sign"]] = value >= 0;
+      flags[flagsMap["zero"]] = value == 0;
       return "ok";
     },
     and: (args) => {
@@ -317,13 +316,15 @@ function App() {
       }
       let value = 0;
       if (isRegister(args[1])) {
-        value = registers[registerMap[args[1].toUpperCase()]];
+        value = registers[registersMap[args[1].toUpperCase()]];
       } else {
         value = parseInt(args[1]);
       }
-      const register = registerMap[args[0].toUpperCase()];
+      const register = registersMap[args[0].toUpperCase()];
 
-      registers[register] &= value;
+      value &= registers[register];
+
+      storeInRegister(register, value);
       return "ok";
     },
     or: (args) => {
@@ -335,13 +336,15 @@ function App() {
       }
       let value = 0;
       if (isRegister(args[1])) {
-        value = registers[registerMap[args[1].toUpperCase()]];
+        value = registers[registersMap[args[1].toUpperCase()]];
       } else {
         value = parseInt(args[1]);
       }
-      const register = registerMap[args[0].toUpperCase()];
+      const register = registersMap[args[0].toUpperCase()];
 
-      registers[register] |= value;
+      value |= registers[register];
+
+      storeInRegister(register, value);
       return "ok";
     },
     xor: (args) => {
@@ -353,13 +356,15 @@ function App() {
       }
       let value = 0;
       if (isRegister(args[1])) {
-        value = registers[registerMap[args[1].toUpperCase()]];
+        value = registers[registersMap[args[1].toUpperCase()]];
       } else {
         value = parseInt(args[1]);
       }
-      const register = registerMap[args[0].toUpperCase()];
+      const register = registersMap[args[0].toUpperCase()];
 
-      registers[register] ^= value;
+      value ^= registers[register];
+
+      storeInRegister(register, value);
       return "ok";
     },
     not: (args) => {
@@ -369,10 +374,12 @@ function App() {
       if (!isRegister(args[0])) {
         return "InvalidArgument"
       }
-      const register = registerMap[args[0].toUpperCase()];
+      const register = registersMap[args[0].toUpperCase()];
       let value = registers[register];
 
-      registers[register] = ~value & 255; // becose we need to use only 8 bits
+      value = ~value & 255; // becose we need only 8 bits
+
+      storeInRegister(register, value);
       return "ok";
     },
     shl: (args) => {
@@ -382,7 +389,7 @@ function App() {
       if (!isRegister(args[0])) {
         return "InvalidArgument"
       }
-      const register = registerMap[args[0].toUpperCase()];
+      const register = registersMap[args[0].toUpperCase()];
 
       let value = registers[register] << 1;
       storeInRegister(register, value);
@@ -395,7 +402,7 @@ function App() {
       if (!isRegister(args[0])) {
         return "InvalidArgument"
       }
-      const register = registerMap[args[0].toUpperCase()];
+      const register = registersMap[args[0].toUpperCase()];
 
       let value = registers[register] >> 1;
       storeInRegister(register, value);
@@ -410,7 +417,7 @@ function App() {
       }
       let jump = parseInt(args[0]);
 
-      if (flags[flagMap["zero"]]) {
+      if (flags[flagsMap["zero"]]) {
         setNextProgramCounter(jump - 1);
       }
       return "ok";
@@ -424,7 +431,7 @@ function App() {
       }
       let jump = parseInt(args[0]);
 
-      if (!flags[flagMap["zero"]]) {
+      if (!flags[flagsMap["zero"]]) {
         setNextProgramCounter(jump - 1);
       }
       return "ok";
@@ -438,7 +445,7 @@ function App() {
       }
       let jump = parseInt(args[0]);
 
-      if (flags[flagMap["sign"]]) {
+      if (flags[flagsMap["sign"]]) {
         setNextProgramCounter(jump - 1);
       }
       return "ok";
@@ -452,7 +459,7 @@ function App() {
       }
       let jump = parseInt(args[0]);
 
-      if (!flags[flagMap["sign"]]) {
+      if (!flags[flagsMap["sign"]]) {
         setNextProgramCounter(jump - 1);
       }
       return "ok";
@@ -466,21 +473,23 @@ function App() {
   };
 
   function isRegister(input) {
-    return registerMap[input.toUpperCase()] != null;
+    return registersMap[input.toUpperCase()] != null;
   }
 
   function storeInRegister(register, value) {
     if (value >= 256 || value < 0) {
-      flags[flagMap["carry"]] = true;
+      flags[flagsMap["carry"]] = true;
       value = ((value % 256) + 256) % 256; // becose JS cannot calculate the modulus of negative number
     } else {
-      flags[flagMap["carry"]] = false;
+      flags[flagsMap["carry"]] = false;
     }
     registers[register] = value;
     setLastUsedRegister(register);
   }
 
-  
+  function resetLastUsedRegister() {
+    setLastUsedRegister(-1);
+  }
 
   const step = () => {
     if (cpuStatus !== "ok") {
@@ -488,49 +497,46 @@ function App() {
     }
     const lines = code.split("\n");
 
-    let localPC = nextProgramCounter - 1; // REACT async error
+    let localProgramCounter = nextProgramCounter - 1; // REACT async error -> have to use local var
     setProgramCounter(nextProgramCounter);
-    setLastUsedRegister(-1);
+    resetLastUsedRegister();
     
-    if (localPC >= lines.length) {
+    if (localProgramCounter >= lines.length) {
       setCpuStatus("halt");
       return;
     }
     
-    let currentLine = lines[localPC].trim();
-    console.log({currentLine, localPC, nextProgramCounter}); // logging___________________________
+    let currentLine = lines[localProgramCounter].trim();
     
     let [instruction, ...args] = currentLine.split(/\s+/);
 
     if (currentLine.length == 0 || instruction.startsWith("//")) {
       setNextProgramCounter(prev => prev + 1);
-      return "ok";
+      return;
     }
-    
-    args = args.filter(arg => arg !== ''); // filter empty spaces
     
     const commentIndex = args.findIndex(item => item.startsWith('//')); // filter comments
     if (commentIndex !== -1) {
       args = args.slice(0, commentIndex);
     }
     
-    const func = instructionSet[instruction.toLowerCase()];
+    const func = instructionsSet[instruction.toLowerCase()];
     
     if (func) {
       let status = func(args);
       if (status != "ok") {
-        setInvalidLine(localPC);
+        setInvalidLine(localProgramCounter);
       }
       setCpuStatus(status);
     } else {
       setCpuStatus("InvalidOperation");
-      setInvalidLine(localPC);
+      setInvalidLine(localProgramCounter);
     }
 
     setNextProgramCounter(prev => prev + 1);
   };
 
-  useEffect(() => {
+  useEffect(() => {               // blue scroll bar at the bottom
     const handleScroll = () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const scrollHeight = document.documentElement.scrollHeight;
@@ -542,15 +548,12 @@ function App() {
 
     window.addEventListener('scroll', handleScroll);
 
-    // Clean up the event listener on component unmount
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  const [runStep, setRunStep] = useState(false);
-
-  useEffect(() => {
+  useEffect(() => {     // run
     const id = setInterval(() => {
       if (run) {
         if (cpuStatus !== "ok" ) {
@@ -563,7 +566,7 @@ function App() {
     return () => clearInterval(id);
   }, [run]);
 
-  useEffect(() => {
+  useEffect(() => {   // run
     if (runStep) {
       step();
       setRunStep(false);
@@ -584,7 +587,7 @@ function App() {
     setCpuStatus("ok");
     setUserInput("");
     setUserOutput("");
-    setLastUsedRegister(-1);
+    resetLastUsedRegister();
   };
 
   return (
@@ -618,6 +621,8 @@ function App() {
         </div>
       </div>
 
+      <ProcessorInstructions setCode={setCode} invalidLine={invalidLine} setInvalidLine={setInvalidLine} />
+
       <div className="scroll-bar-container">
         <div
           className="scroll-bar"
@@ -625,8 +630,6 @@ function App() {
         ></div>
       </div>
 
-      <ProcessorInstructions setCode={setCode} invalidLine={invalidLine} setInvalidLine={setInvalidLine} />
-              {/* invalid line set to -2 is to sync code when i click on button*/}
     </div>
   );
 }

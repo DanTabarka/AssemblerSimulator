@@ -1,4 +1,4 @@
-.registersDiv {
+.registers-div {
     text-align: center;
     box-sizing: border-box;
     width: 25%;
@@ -25,18 +25,18 @@ p {
     background-color: hsla(208, 56%, 53%, 0.2);
 }
 
-.highlightRegister {
+.highlight-register {
     box-shadow: 0 0 0 1px black;
     background-color: hsla(92, 100%, 52%, 0.485) !important;
 }
 
-table {
+.registers-table {
     margin: auto;
     width: 50%;
     border-collapse: collapse;
 }
 
-table:hover {
+.registers-table:hover {
     cursor: help;
 }
 
@@ -48,13 +48,13 @@ table:hover {
     color: green;
 }
 
-th, td {
+.registers-table th, .registers-table td {
     border: 1px solid hsl(0, 0%, 67%);
     padding: 8px;
     text-align: center;
 }
 
-th {
+.registers-table th {
     background-color: #428BCA;
     color: white;
 }
@@ -80,8 +80,6 @@ th {
     transition: opacity 0.5s, visibility 0.5s;
     font-size: 0.9em;
     display: flex;
-    /* width: 75px; */
-    /* justify-content: center; */
 }
 
 .tooltip:hover::after {

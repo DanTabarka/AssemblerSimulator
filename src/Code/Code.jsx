@@ -1,8 +1,7 @@
 import './code.css';
-import React, { useState, useRef, useEffect } from 'react';
-import 'codemirror/lib/codemirror.css'; // Základní CSS pro CodeMirror
-import 'codemirror/mode/clike/clike'; // Import režimu pro zvýraznění syntaxe C
-// import 'codemirror/theme/default.css'; // Import tématu (např. default)
+import React, { useRef, useEffect } from 'react';
+import 'codemirror/lib/codemirror.css'; // basic CSS for MirrorCode
+import 'codemirror/mode/clike/clike'; // Import C syntax
 import CodeMirror from 'codemirror';
 
 
@@ -15,10 +14,10 @@ function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, 
         lineNumbers: true,
         mode: 'text/x-csrc',
         theme: 'default',
-        tabSize: 8, // Velikost tabulátoru
-        smartIndent: false, // Zakázat chytré odsazení
-        lineWrapping: true, // Povolit zalamování řádků
-        viewportMargin: Infinity, // Rozšíření viewportu
+        tabSize: 8,
+        smartIndent: false,
+        lineWrapping: true,
+        viewportMargin: Infinity,
       });
 
       const highlightLine = (lineNumber, className) => {
@@ -51,7 +50,6 @@ function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, 
       updateHighlights();
       editor.scrollIntoView({ line: programCounter, ch: 0 });
 
-      // Při změně textu v editoru
       editor.on('change', () => {
         updateHighlights();
         setCode(editor.getValue());
@@ -66,13 +64,11 @@ function Code({ programCounter, nextProgramCounter, code, setCode, invalidLine, 
 
   return (
     <div className="code">
-      {/* <div ref={lineNumbersRef} className="line-numbers"></div> */}
       <div className="code-and-status">
         <textarea
           ref={codeInputRef}
           className="code-input"
           onChange={(e) => setCode(e.target.value)}
-          // onScroll={syncScroll}
           placeholder="Write assembler code here..."
         />
         <div className='inout-container'>

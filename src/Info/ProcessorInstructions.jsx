@@ -107,7 +107,7 @@ HALT                    // Ukončit program
 
 
     return (
-        <div className="container">
+    <div className="container body">
         <h1 id="introduction">Úvod</h1>              {/* _______________uvod section__________________________ */}
         <div className="instruction">
             <h3>Syntax</h3>
@@ -243,7 +243,7 @@ JNS num         // Jump if Not Sign`}
             </pre>
             <p>Zastaví procesor</p>
         </div>
-        <div className="instruction">            {/* _______________programy section__________________________ */}
+        <div className="instruction" id="programs">    {/* _____________programy section_____________________ */}
             <h1>Program Hello world!
             <button 
                 className="setCode"

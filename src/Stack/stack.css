@@ -1,4 +1,4 @@
-.stackDiv {
+.stack-div {
     text-align: center;
     box-sizing: border-box;
     width: 25%;
@@ -6,7 +6,7 @@
     padding-left: 30px;
 }
 
-h2 {
+.stack-h2 {
     margin-top: 0px;
     padding-top: 0px;
 }
@@ -15,7 +15,7 @@ h2 {
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    border-bottom: 1px solid #ccc; /* Jemná čára mezi řádky */
+    border-bottom: 1px solid #ccc;
 }
 
 .stack-number {
@@ -33,12 +33,8 @@ h2 {
     color: white;
     font-weight: bold;
 }
-.stack-row.underActive {
+.stack-row.under-active {
     background-color: hsl(208, 56%, 70%);
     color: white;
     font-weight: bold;
-}
-
-.flags {
-    font-style: italic;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import './registers.css';
 
 function Register({name, value, data, lastUsedRegister = -2}) {
-  let registers = ["A", "B", "C", "D"];
+  let registers = ["A", "B", "C", "D"]; // to index and highlight lastUsedRegister
 
   const hexValue = value.toString(16).toUpperCase().padStart(2, '0');
   const binValue = value.toString(2).padStart(8, '0');
@@ -12,7 +12,7 @@ function Register({name, value, data, lastUsedRegister = -2}) {
   return (
     <div className='register-item'>
         <h3 className='tooltip' data-tooltip={`${data}`}>{name}</h3>
-        <p className={`value ${lastUsedRegister === registers.indexOf(name) ? 'highlightRegister' : ''}`}>0x{hexValue} : {decValue} : {binValue}</p>
+        <p className={`value ${lastUsedRegister === registers.indexOf(name) ? 'highlight-register' : ''}`}>0x{hexValue} : {decValue} : {binValue}</p>
     </div>
   );
 }
